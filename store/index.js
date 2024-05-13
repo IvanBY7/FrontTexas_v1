@@ -4,7 +4,7 @@ import { removeValue, setValue } from '~/utils/cookies'
 export const namespaced = true
 
 export const state = () => ({
-  titleStack: ['ParamQ'],
+  titleStack: ['AgenteMonitor'],
   /* User */
   userName: null,
   userEmail: null,

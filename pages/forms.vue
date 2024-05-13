@@ -24,7 +24,7 @@ export default {
   },
   head () {
     return {
-      title: 'Cliente — ParamQ'
+      title: 'Cliente — AgenteMonitor'
     }
   }
 }

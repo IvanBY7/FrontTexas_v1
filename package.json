@@ -1,7 +1,7 @@
 {
   "name": "maribel",
   "version": "1.3.0",
-  "description": "Panel de control para aseguradoras",
+  "description": "Agente Monitor",
   "author": "JustBoil.me",
   "private": true,
   "scripts": {

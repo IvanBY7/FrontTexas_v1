@@ -60,7 +60,7 @@ export default {
   },
   head () {
     return {
-      title: 'Locked — ParamQ'
+      title: 'Locked — AgenteMonitor'
     }
   }
 }

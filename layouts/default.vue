@@ -1,28 +1,9 @@
 <template>
   <div id="app">
-    <div class="float-button">
-      <float-action-button />
-    </div>
     <nav-bar />
     <b-loading v-model="isLoading" :is-full-page="true" :can-cancel="false" />
-    <aside-menu
-      :menu="menu"
-      :menu-bottom="menuBottom"
-      :class="{ 'has-secondary': !!menuSecondary }"
-      @menu-click="menuClick"
-    />
-    <aside-menu
-      v-if="menuSecondary"
-      :menu="menuSecondary"
-      :is-secondary="true"
-      :label="menuSecondaryLabel"
-      :icon="menuSecondaryIcon"
-      @menu-click="menuClick"
-      @close="menuSecondaryCloseClick"
-    />
     <title-bar :title-stack="titleStack" />
     <nuxt />
-    <aside-right />
   </div>
 </template>
 
@@ -68,8 +49,8 @@ export default {
               label: 'Inicio'
             },
             {
-              to: '/policies',
-              label: 'Pólizas',
+              to: '/sensors/areas-trabajo',
+              label: 'Sensores',
               state: '1warning',
               icon: 'shield-plus'
             },
@@ -267,5 +248,10 @@ export default {
 .events-card .card-table {
   max-height: 250px;
   overflow-y: scroll;
+}
+@media screen and (min-width: 1024px) {
+    html.has-aside-left nav.navbar, html.has-aside-left body {
+        padding-left: 0;
+    }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit }">
     <section class="hero is-fullheight">
-      <div class="hero-body" >
+      <div class="hero-body">
         <div class="login">
           <div class="card box">
             <div class="has-text-centered">
@@ -41,6 +41,14 @@
                 password-reveal
                 :normal="true"
               />
+              <small class="has-text-dark">
+                ¿Has olvidado tu contraseña?&nbsp;·&nbsp;
+                <strong>
+                  <nuxt-link class="link" to="/auth/register">
+                    Recuperala
+                  </nuxt-link>
+                </strong>
+              </small>
               <hr />
               <b-field>
                 <b-button
@@ -53,14 +61,14 @@
                   Ingresar
                 </b-button>
               </b-field>
-              <!-- <small class="has-text-dark">
+              <small class="has-text-dark">
                 ¿No tienes cuenta?&nbsp;·&nbsp;
                 <strong>
                   <nuxt-link class="link" to="/auth/register">
                     Regístrate
                   </nuxt-link>
                 </strong>
-              </small> -->
+              </small>
             </form>
           </div>
         </div>
@@ -109,7 +117,7 @@ export default {
       try {
         await this.$store.dispatch('modules/auth/login', this.form)
         this.$router.push({
-          path: this.redirect || '/',
+          path: this.redirect || '/empresas/Empresas',
           query: this.otherQuery
         })
       } catch (error) {
@@ -124,7 +132,7 @@ export default {
   },
   head () {
     return {
-      title: 'Login — ParamQ'
+      title: 'Login — AgenteMonitor'
     }
   }
 }
@@ -136,16 +144,16 @@ export default {
 }
 
 .button:hover {
-  background: rgba(82, 30, 135, 0.8);
+  background: rgba(92, 91, 91, 0.8);
   transition: 0.6s;
 }
 
 .link {
-  color: rgb(104, 103, 103);
+  color: rgb(4, 0, 252);
 }
 
 .link:hover {
-  color: rgb(240, 184, 94);
+  color: rgb(77, 77, 77);
 }
 
 .login {
@@ -157,6 +165,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .particles {
@@ -166,18 +175,22 @@ export default {
 .hero {
   background: linear-gradient(
     50deg,
-    #361066 5%,
-    #441480 9.87%,
-    rgb(113, 33, 211) 30.04%,
-    #7322d6 36.71%,
-    #e94e1b 64.41%,
-    #ed5410 76.96%,
-    #ED5410.4%,
-    #ff9503 99.97%
+    #333333 5%, /* gris oscuro */
+    #444444 9.87%, /* gris */
+    #555555 30.04%, /* gris medio */
+    #666666 36.71%, /* gris */
+    #777777 64.41%, /* gris */
+    #888888 76.96%, /* gris */
+    #999999 99.96% /* gris */
   );
 }
 .box {
   max-width: 400px;
   background-color: white;
+}
+@media screen and (min-width: 769px), print {
+    .hero-body {
+        padding: 0;
+    }
 }
 </style>

@@ -40,12 +40,12 @@ export default {
   },
   methods: {
     goBack () {
-      this.$router.go(-1)
+      this.$router.push({ name: 'clients' })
     }
   },
   head () {
     return {
-      title: 'Error #1 — ParamQ'
+      title: 'Error #1 —AgenteMonitor'
     }
   }
 }

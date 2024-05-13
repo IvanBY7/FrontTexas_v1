@@ -30,7 +30,7 @@
 <script>
 
 export default {
-  name: 'Login',
+  name: 'PasswordRecovery',
   data () {
     return {
       isLoading: false,
@@ -59,7 +59,7 @@ export default {
   },
   head () {
     return {
-      title: 'Password Recovery — ParamQ'
+      title: 'Password Recovery — AgenteMonitor'
     }
   }
 }

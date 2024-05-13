@@ -1,19 +1,14 @@
 <template>
   <section class="hero is-fullheight">
     <div class="hero-body" style="justify-content: center;">
-      <!-- <div class="container is-max-desktop register">
+      <div class="container is-max-desktop register">
         <div class="box">
           <div class="columns mt-1">
             <div class="column left has-text-centered is-hidden-mobile">
-              <h1 class="title is-3">ParamQ ParamQ</h1>
+              <h1 class="title is-3">Agente Monitor</h1>
               <h2 class="subtitle colored is-5">
                 Gestión para aseguradoras.
               </h2>
-              <p>
-                Administrar tus clientes nunca había sido tan fácil, desde
-                mandar un simple correo, hasta realizar reporteo de todas las
-                pólizas de tu compañía.
-              </p>
               <br />
               <img
                 class="logo"
@@ -64,7 +59,7 @@
                     type="email"
                     name="email"
                     v-model="form.email"
-                    placeholder="johndoe@paramq.com"
+                    placeholder=""
                   />
                   <BInputWithValidation
                     :normal="true"
@@ -106,7 +101,7 @@
                   <hr />
                   <b-field>
                     <button
-                      class="button is-block is-primary is-fullwidth"
+                      class="button is-block is-fullwidth"
                       :class="{ 'is-loading': isLoading }"
                       @click.prevent="handleSubmit(signup)"
                     >
@@ -126,7 +121,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
       <vue-particles
         class="particles"
         color="#dedede"
@@ -155,9 +150,6 @@ export default {
   name: 'Login',
   layout: 'full-page',
   mixins: [redirect],
-  fetch () {
-    this.$router.push('/')
-  },
   data () {
     return {
       isLoading: false,
@@ -185,7 +177,7 @@ export default {
   },
   head () {
     return {
-      title: 'Login — ParamQ'
+      title: 'Login — AgenteMonitor'
     }
   }
 }
@@ -193,29 +185,33 @@ export default {
 
 <style scoped>
 .button {
+  background-color: #999999;
   transition: 0.6s;
 }
 
 .button:hover {
-  background: rgba(82, 30, 135, 0.8);
+  background: rgba(92, 91, 91, 0.8);
   transition: 0.6s;
 }
 
 .link {
-  color: rgb(104, 103, 103);
+  color: rgb(4, 0, 252);
 }
 
 .link:hover {
-  color: rgb(240, 184, 94);
+  color: rgb(77, 77, 77);
 }
 
 .register {
   max-width: 700px;
   position: fixed;
+  max-height: 100vh;
+  overflow-y: scroll;
 }
 
 .hero-body {
-  padding-top: 0%;
+  max-height: 100vh;
+  padding: 0%;
 }
 
 .particles {
@@ -225,14 +221,13 @@ export default {
 .hero {
   background: linear-gradient(
     50deg,
-    #361066 5%,
-    #441480 9.87%,
-    rgb(113, 33, 211) 30.04%,
-    #7322d6 36.71%,
-    #e94e1b 64.41%,
-    #ed5410 76.96%,
-    #ED5410.4%,
-    #ff9503 99.97%
+    #333333 5%, /* gris oscuro */
+    #444444 9.87%, /* gris */
+    #555555 30.04%, /* gris medio */
+    #666666 36.71%, /* gris */
+    #777777 64.41%, /* gris */
+    #888888 76.96%, /* gris */
+    #999999 99.96% /* gris */
   );
 }
 .box {

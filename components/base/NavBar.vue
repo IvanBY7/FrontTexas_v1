@@ -2,18 +2,20 @@
   <nav v-show="isNavBarVisible" id="navbar-main" class="navbar is-fixed-top">
     <div class="navbar-brand">
       <p
-        :title="toggleTooltip"
+        title="Home"
         style="cursor:pointer"
         class="navbar-item is-desktop-icon-only is-hidden-touch"
-        @click.prevent="menuToggle"
+        @click="home"
       >
-        <b-icon :icon="menuToggleIcon" />
+        <b-icon icon="home" />
       </p>
       <p
+        title="Home"
+        style="cursor:pointer"
         class="navbar-item is-hidden-desktop"
-        @click.prevent="menuToggleMobile"
+        @click="home"
       >
-        <b-icon :icon="menuToggleMobileIcon" />
+        <b-icon icon="home" />
       </p>
     </div>
     <div class="navbar-brand is-right">
@@ -70,7 +72,6 @@
         <a
           class="navbar-item has-divider is-desktop-icon-only"
           title="Mensajes del sistema"
-          @click.prevent="updatesToggle"
         >
           <b-icon
             icon="bell"
@@ -78,6 +79,12 @@
             :class="{ 'has-update-mark': hasUpdates }"
           />
           <span>Mensajes del sistema</span>
+        </a>
+        <a
+          class="navbar-item has-divider is-desktop-icon-only"
+          title="Hora"
+        >
+          {{ horaActual }}
         </a>
       </div>
     </div>
@@ -91,7 +98,8 @@ export default {
   name: 'NavBar',
   data () {
     return {
-      isMenuNavBarActive: false
+      isMenuNavBarActive: false,
+      horaActual: null
     }
   },
   computed: {
@@ -121,6 +129,12 @@ export default {
       'hasUpdates'
     ])
   },
+  mounted () {
+    this.obtenerHoraActual()
+    setInterval(() => {
+      this.obtenerHoraActual()
+    }, 1000)
+  },
   methods: {
     menuToggle () {
       this.$store.commit('asideStateToggle')
@@ -146,6 +160,20 @@ export default {
       this.$store.dispatch('modules/auth/logout').then(() => {
         window.location.reload()
       })
+    },
+    home () {
+      this.$router.push('/empresas/Empresas')
+    },
+    obtenerHoraActual () {
+      const fecha = new Date()
+      const horas = fecha.getHours()
+      const minutos = fecha.getMinutes()
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.horaActual = `${this.agregarCero(horas)}:${this.agregarCero(minutos)}`
+      return this.horaActual
+    },
+    agregarCero (numero) {
+      return numero < 10 ? '0' + numero : numero
     }
   }
 }

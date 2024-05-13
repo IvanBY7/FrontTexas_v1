@@ -30,8 +30,8 @@
                     <span class="title is-7">
                       {{ user.license.business_name }}
                     </span>
-                    <br />
-                    <small class="has-text-weight-light">ParamQ</small>
+                    <br/>
+                    <small class="has-text-weight-light">AgenteMonitor</small>
                   </div>
                 </div>
               </b-field>
@@ -132,7 +132,7 @@ export default {
   },
   head () {
     return {
-      title: 'Mi cuenta — ParamQ'
+      title: 'Mi cuenta — AgenteMonitor'
     }
   }
 }

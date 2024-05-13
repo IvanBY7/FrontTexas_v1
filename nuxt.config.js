@@ -4,14 +4,14 @@ export default {
    */
 
   head: {
-    title: 'PARAMQ - admin',
+    title: 'AgenteMonitor',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: 'Panel de control para aseguradoras'
+        content: 'Monitor de sensores'
       }
     ],
     link: [
@@ -111,7 +111,7 @@ export default {
       source: 'static/icon.png'
     },
     manifest: {
-      name: 'ParamQ',
+      name: 'AgenteMonitor',
       lang: 'es',
       theme_color: '#ff9503',
       useWebmanifestExtension: false
@@ -121,7 +121,7 @@ export default {
     filename: '.env.dev' // Especifica el archivo que debe cargar
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:8000/api'
+    baseUrl: process.env.BASE_URL || 'http://localhost:8000/api/v1'
   },
   server: {
     host: process.env.HOST || 'localhost'

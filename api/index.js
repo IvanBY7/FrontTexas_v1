@@ -3,7 +3,7 @@ import request from './config'
 /*  LOGIN  */
 export const login = (data) => {
   return request({
-    url: '/auth/login/',
+    url: '/auth/token/',
     method: 'POST',
     data
   })

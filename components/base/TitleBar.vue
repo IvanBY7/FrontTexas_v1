@@ -1,42 +1,12 @@
 <template>
   <section class="section is-title-bar">
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <ul>
-            <li>
-              <img
-                v-if="!isDarkModeActive"
-                style="width: 40px;"
-                src="@/assets/logo.png"
-                alt="ParamQ logo"
-              />
-              <img
-                v-else
-                style="width: 40px;"
-                src="@/assets/logo.png"
-                alt="ParamQ logo"
-              />
-            </li>
-            <li v-for="(title, index) in titleStack" :key="index">
-              {{ title }}
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="level-right">
-        <div class="level-item">
-          <div class="buttons is-right">
-            <slot name="right">
-              <nuxt-link to="/" class="button is-light">
-                <b-icon icon="home" custom-size="default" />
-                <span>Dashboard</span>
-              </nuxt-link>
-            </slot>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Iterar sobre cada elemento del array titleStack -->
+    <ul>
+      <li v-for="(title, index) in titleStack" :key="index">
+        <!-- Imprimir cada elemento del array -->
+        {{ title }}
+      </li>
+    </ul>
   </section>
 </template>
 

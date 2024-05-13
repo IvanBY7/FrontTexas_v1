@@ -8,7 +8,7 @@ export default async function ({ store, redirect, route }) {
   if (token) {
     if (route.path === '/auth/login' || route.path === '/auth/register') {
       // if is logged in, redirect to the home page
-      redirect('/')
+      redirect('/empresas/Empresas')
     } else {
       // determine whether the user has obtained his permission roles through getInfo
       try {

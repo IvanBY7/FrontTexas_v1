@@ -1,6 +1,5 @@
 <template>
-  <div>
-  </div>
+  <div />
 </template>
 
 <style>
@@ -189,7 +188,7 @@ export default {
   },
   head () {
     return {
-      title: 'Panel de control — ParamQ'
+      title: 'Agente Monitor'
     }
   }
 }
