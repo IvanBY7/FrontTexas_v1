@@ -3,14 +3,23 @@
     <div class="contenido">
       <div class="columns is-multiline">
         <div v-for="(empresa, index) in lista_empresas" :key="index" class="column is-one-quarter">
-          <div class="card empresa-card is-hoverable" @click="verEmpresa(empresa)">
+          <div class="card empresa-card is-hoverable">
             <div class="card-image">
               <figure class="image is-4by3">
-                <img :src="baseUrl(empresa.Url_img)" :alt="baseUrl(empresa.Url_img)">
+                <img :src="baseUrl(empresa.Url_img)" :alt="baseUrl(empresa.Url_img)" @click="verEmpresa(empresa)">
               </figure>
               <div class="empresa-name">
                 <p>{{ empresa.Nombre_Empresa }}</p>
               </div>
+              <b-dropdown aria-role="menu" class="menu">
+                <button slot="trigger" class="button">
+                  <b-icon icon="menu-down" />
+                </button>
+                <b-dropdown-item @click="eliminar(empresa)">
+                  Eliminar
+                </b-dropdown-item>
+                <b-dropdown-item>Configurar</b-dropdown-item>
+              </b-dropdown>
             </div>
           </div>
         </div>
@@ -106,6 +115,9 @@ export default {
     this.getEmpresas()
   },
   methods: {
+    eliminar (empresa) {
+      console.log(empresa)
+    },
     baseUrl (url) {
       // Agrega la URL base de tu API aquí
       console.log('http://localhost:8000' + url)
@@ -294,7 +306,6 @@ export default {
       color: rgb(3, 3, 3);
     }
     .empresa-card {
-    cursor: pointer;
     position: relative;
   }
   .empresa-name {
@@ -395,5 +406,10 @@ export default {
 /* Opcional: Estilos para el botón de carga al pasar el ratón */
 .dropzone-upload-button:hover {
   background-color: #45a049;
+}
+.menu{
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
 }
 </style>
