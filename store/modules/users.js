@@ -1,4 +1,4 @@
-import { getUsers, updateUser, createUser } from '~/api/users'
+import { getUsers, updateUser, createUser, getUserbyCompany } from '~/api/users'
 import { getGroups } from '~/api/groups'
 
 export const actions = {
@@ -17,6 +17,10 @@ export const actions = {
   },
   async getGroupsList ({ commit }, query) {
     const res = await getGroups(query)
+    return res
+  },
+  async getUserbyCompany ({ commit }, query) {
+    const res = await getUserbyCompany(query)
     return res
   }
 }

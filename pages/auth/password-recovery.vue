@@ -1,5 +1,5 @@
 <template>
-  <card-component title="Password Recovery" icon="lock-open" :has-card-header-background="true" :has-button-slot="true">
+  <card-component title="Password Recovery" :has-card-header-background="true" :has-button-slot="true">
     <nuxt-link slot="button" to="/" class="button is-small">
       Dashboard
     </nuxt-link>
@@ -18,7 +18,7 @@
           </button>
         </div>
         <div class="control">
-          <nuxt-link to="/full-page/login" class="button is-black is-outlined">
+          <nuxt-link to="/auth/login" class="button is-black is-outlined">
             Back
           </nuxt-link>
         </div>

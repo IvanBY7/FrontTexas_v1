@@ -5,7 +5,7 @@
         <div v-for="(empresa, index) in lista_empresas" :key="index" class="column is-one-quarter">
           <div class="card empresa-card is-hoverable">
             <div class="card-image">
-              <figure class="image is-4by3">
+              <figure class="image is-4by3 card-access">
                 <img :src="baseUrl(empresa.Url_img)" :alt="baseUrl(empresa.Url_img)" @click="verEmpresa(empresa)">
               </figure>
               <div class="empresa-name">
@@ -15,18 +15,24 @@
                 <button slot="trigger" class="button">
                   <b-icon icon="menu-down" />
                 </button>
-                <b-dropdown-item @click="eliminar(empresa)">
-                  Eliminar
+                <b-dropdown-item
+                  v-if="(checkrol(1))"
+                  @click="eliminar(empresa)"
+                />
+                <b-dropdown-item>
+                  Configurar
                 </b-dropdown-item>
-                <b-dropdown-item>Configurar</b-dropdown-item>
+                <b-dropdown-item @click="info(empresa)">
+                  Obtener info
+                </b-dropdown-item>
               </b-dropdown>
             </div>
           </div>
         </div>
-        <div class="column is-one-quarter">
+        <div v-if="(checkrol(1))" class="column is-one-quarter">
           <div class="card empresa-card is-hoverable" @click="AltaEmpresa(lista_empresas)">
             <div class="card-image">
-              <figure class="image is-4by3">
+              <figure class="image is-4by3 card-access">
                 <div class="empresa-name2 box">
                   {{ '+' }}
                 </div>
@@ -100,7 +106,9 @@ export default {
       formEmpresa: {
         Nombre_Empresa: null,
         URL_img: '',
-        email: ''
+        email: '',
+        is_active: true,
+        fk_config: 1
       },
       myDropzone: null,
       imagenSeleccionada: null // Variable para almacenar la imagen seleccionada
@@ -115,13 +123,44 @@ export default {
     this.getEmpresas()
   },
   methods: {
+    checkrol (rol) {
+      if (this.$store.state.user.groups[0] === rol) {
+        return true
+      } else {
+        return false
+      }
+    },
     eliminar (empresa) {
-      console.log(empresa)
+      this.$buefy.dialog.confirm({
+        title: 'Eliminando Empresa',
+        message: `¿Estás seguro de que deseas eliminar la empresa ${empresa.Nombre_Empresa}?`,
+        type: 'is-danger',
+        hasIcon: true,
+        iconPack: 'fas',
+        icon: 'exclamation-circle',
+        cancelText: 'Cancelar',
+        confirmText: 'Eliminar',
+        canCancel: true,
+        onConfirm: async () => {
+          try {
+            await this.$store.dispatch('modules/companys/delCompany', empresa.IdEmpresa)
+            this.getEmpresas()
+            this.$buefy.snackbar.open({
+              message: 'Empresa eliminada correctamente',
+              type: 'is-success'
+            })
+          } catch (error) {
+            this.$buefy.snackbar.open({
+              message: 'Error al eliminar la empresa',
+              type: 'is-danger'
+            })
+            console.error('Error al eliminar la empresa:', error)
+          }
+        }
+      })
     },
     baseUrl (url) {
-      // Agrega la URL base de tu API aquí
-      console.log('http://localhost:8000' + url)
-      return 'http://localhost:8000/api/v1' + url // Reemplaza esto con la URL base de tu API
+      return process.env.baseUrl + url // Reemplaza esto con la URL base de tu API
     },
     getuseremail () {
       this.formEmpresa.email = this.user.email
@@ -129,8 +168,8 @@ export default {
     async getEmpresas () {
       try {
         const response = await this.$store.dispatch('modules/companys/getCompany', this.user.email)
-        this.lista_empresas = response
         console.log(response)
+        this.lista_empresas = response
       } catch {
         this.$buefy.snackbar.open({
           message: 'Error al cargar las empresas',
@@ -142,16 +181,22 @@ export default {
       if (form.Nombre_Empresa) {
         const formData = new FormData()
         formData.append('Nombre_Empresa', form.Nombre_Empresa)
+        formData.append('is_active', form.is_active)
+        formData.append('fk_config', form.fk_config)
         formData.append('email', form.email)
         formData.append('Url_img', form.URL_img) // Agrega el archivo al FormData, donde 'file' es el archivo seleccionado
         try {
           const response = await this.$store.dispatch('modules/companys/createCompany', formData)
           this.close()
-          this.$buefy.snackbar.open({
-            message: 'Empresa creada con exito',
-            type: 'is-success'
-          })
+          console.log(response)
           this.getEmpresas()
+          this.$buefy.dialog.alert({
+            title: 'Empresa creada',
+            message: `<b>Nombre de empresa: </b>${response.Nombre_Empresa}<br>
+                      <b>Clave de empresa: </b> ${response.ClaveEmpresa} <br>
+                      Comparte está clave cons tus empleados para poder registrarse`,
+            confirmText: 'Aceptar'
+          })
           return response.data
         } catch {
           this.$buefy.snackbar.open({
@@ -166,16 +211,23 @@ export default {
         })
       }
     },
+    info (empresa) {
+      this.$buefy.dialog.alert({
+        title: 'Empresa creada',
+        message: `<b>Nombre de empresa: </b>${empresa.Nombre_Empresa}<br>
+                      <b>Clave de empresa: </b> ${empresa.ClaveEmpresa} <br>
+                      Comparte está clave cons tus empleados para poder registrarse`,
+        confirmText: 'Aceptar'
+      })
+    },
     prueba () {
       this.$router.go(-1)
     },
     config () {
-      console.log(this.user)
       alert('Aqui se redirige al modulo de configuración')
     },
     verEmpresa (empresa) {
       this.empresaSeleccionada = empresa
-      console.log(empresa.URL_img)
       this.$router.push({ path: '/empresas/Regiones', query: empresa })
     },
     AltaEmpresa (lista) {
@@ -214,7 +266,6 @@ export default {
 
       myDropzone.on('addedfile', function (file) {
         vm.formEmpresa.URL_img = file
-        console.log(vm.formEmpresa)
       })
       // Manejar eventos de Drag and Drop
       myDropzone.on('dragover', function () {
@@ -237,28 +288,6 @@ export default {
           type: 'is-danger'
         })
       })
-      // this.$dropzone('#myDropzone', {
-      //   autoProcessQueue: false, // Desactiva la carga automática de archivos
-      //   url: '/upload',
-      //   maxFilesize: 356, // Tamaño máximo en KB
-      //   acceptedFiles: 'image/jpeg', // Solo se permiten imágenes JPEG
-      //   maxFiles: 1, // Solo se permite cargar una imagen
-      //   dictDefaultMessage:
-      //         'Arrastra aquí una imagen JPEG (max 356KB, 390x250px) o haz clic para seleccionarla',
-      //   thumbnailWidth: 200, // Ancho de la imagen previa en píxeles
-      //   thumbnailHeight: 200, // Alto de la imagen previa en píxeles
-      //   // Habilitar la eliminación de archivos
-      //   addRemoveLinks: true,
-
-      //   init () {
-      //     this.on('addedfile', function (file) {
-      //       console.log('Archivo agregado:', file)
-      //       // Guarda la imagen cargada en la variable
-      //       self.imagenSeleccionada = `@/assets/imgEmpresas/${file.name}`
-      //       console.log('Archivo agregado a la variable:', self.imagenSeleccionada)
-      //     })
-      //   }
-      // })
     }
   },
   head () {
@@ -285,6 +314,9 @@ export default {
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+    }
+    .card-access{
+      cursor: pointer;
     }
     .config p{
       font-weight: bold;
@@ -326,7 +358,7 @@ export default {
     border-radius: 5px; /* Añade bordes redondeados */
     font-size: 30px; /* Tamaño del texto */
     background-color: #a19f9f8e;
-    z-index: 20;
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -44,7 +44,7 @@
               <small class="has-text-dark">
                 ¿Has olvidado tu contraseña?&nbsp;·&nbsp;
                 <strong>
-                  <nuxt-link class="link" to="/auth/register">
+                  <nuxt-link class="link" to="/auth/password-recovery">
                     Recuperala
                   </nuxt-link>
                 </strong>
@@ -74,12 +74,12 @@
         </div>
         <vue-particles
           class="particles"
-          color="#dedede"
-          :particle-opacity="0.7"
-          :particles-number="80"
+          color="#aaaaaa"
+          :particle-opacity="0.9"
+          :particles-number="120"
           shape-type="circle"
           :particle-size="3"
-          lines-color="#dedede"
+          lines-color="#aaaaaa"
           :lines-width="1"
           :line-linked="true"
           :line-opacity="0.4"
@@ -117,7 +117,7 @@ export default {
       try {
         await this.$store.dispatch('modules/auth/login', this.form)
         this.$router.push({
-          path: this.redirect || '/empresas/Empresas',
+          path: this.redirect || '/sensors/dashboard',
           query: this.otherQuery
         })
       } catch (error) {
@@ -141,15 +141,17 @@ export default {
 <style scoped>
 .button {
   transition: 0.6s;
+  background-color: #828787;
 }
 
 .button:hover {
-  background: rgba(92, 91, 91, 0.8);
+  background: rgba(158, 155, 155, 0.8);
   transition: 0.6s;
+  color: black;
 }
 
 .link {
-  color: rgb(4, 0, 252);
+  color: rgb(63, 61, 154);
 }
 
 .link:hover {
@@ -175,18 +177,18 @@ export default {
 .hero {
   background: linear-gradient(
     50deg,
-    #333333 5%, /* gris oscuro */
-    #444444 9.87%, /* gris */
-    #555555 30.04%, /* gris medio */
-    #666666 36.71%, /* gris */
-    #777777 64.41%, /* gris */
-    #888888 76.96%, /* gris */
-    #999999 99.96% /* gris */
+    #e8e8e8 5%, /* gris oscuro */
+    #eeeeee 9.87%, /* gris */
+    #f2f2f2 30.04%, /* gris medio */
+    #f4f4f4 36.71%, /* gris */
+    #f6f6f6 64.41%, /* gris */
+    #f8f8f8 76.96%, /* gris */
+    #ffffff 99.96% /* gris */
   );
 }
 .box {
   max-width: 400px;
-  background-color: white;
+  background-color: #b4beb6;
 }
 @media screen and (min-width: 769px), print {
     .hero-body {

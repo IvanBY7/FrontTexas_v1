@@ -1,12 +1,5 @@
 import request from './config'
 
-export const getRegisters = params => {
-  return request({
-    url: '/groups/',
-    method: 'GET',
-    params
-  })
-}
 export const getDispositivos = params => {
   return request({
     url: '/dispositivos/',
@@ -23,6 +16,13 @@ export const getSensores = (id) => {
 export const getRegistros = (id) => {
   return request({
     url: `/registers/get-register/${id}/`,
+    method: 'GET'
+  })
+}
+export const getRegistrosbyrango = (data) => {
+  console.log(data.rango)
+  return request({
+    url: `/registers/get-register_short/${data.id}/${data.rango}/`,
     method: 'GET'
   })
 }

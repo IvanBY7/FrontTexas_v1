@@ -1,14 +1,14 @@
 import { getToken } from '~/utils/cookies'
 
 export default async function ({ store, redirect, route }) {
-  const whitelist = ['auth-login', 'auth-register']
+  const whitelist = ['auth-login', 'auth-register', 'auth-success', 'auth-password-recovery']
   // determine whether the user has logged in
   const token = getToken()
 
   if (token) {
     if (route.path === '/auth/login' || route.path === '/auth/register') {
       // if is logged in, redirect to the home page
-      redirect('/empresas/Empresas')
+      redirect('/sensors/dashboard')
     } else {
       // determine whether the user has obtained his permission roles through getInfo
       try {

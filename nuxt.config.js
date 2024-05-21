@@ -63,7 +63,8 @@ export default {
     { src: '~/plugins/after-each.js', mode: 'client' },
     { src: '~/plugins/particles.js', mode: 'client' },
     { src: '~/plugins/vue-float-action-button.js', mode: 'client' },
-    { src: '~/plugins/pop-up-window.js', mode: 'client' }
+    { src: '~/plugins/pop-up-window.js', mode: 'client' },
+    { src: '~/plugins/vue-echarts', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -121,7 +122,7 @@ export default {
     filename: '.env.dev' // Especifica el archivo que debe cargar
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'http://192.168.101.109:8000/api/v1'
+    baseUrl: process.env.BASE_URL || 'http://localhost:8000/api/v1'
   },
   server: {
     host: process.env.HOST || 'localhost'

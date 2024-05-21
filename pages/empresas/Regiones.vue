@@ -3,24 +3,42 @@
     <div class="contenido">
       <div class="columns is-multiline">
         <div v-for="(region, index) in lista_regiones" :key="index" class="column is-one-quarter">
-          <div class="card empresa-card" @click="mostrarDetalles(region)">
+          <div class="card empresa-card">
             <div class="card-image">
-              <figure class="image is-4by3">
-                <div class="empresa-name">
-                  <p>{{ region.Nombre_Region }}</p>
-                </div>
+              <figure class="image is-4by3 card-access">
+                <img :src="baseUrl(region.ImagenEmpresa)" alt="Imagen de region" @click="mostrarDetalles(region)">
               </figure>
+              <div class="empresa-name">
+                <p>{{ region.Nombre_region }}</p>
+              </div>
+              <b-dropdown aria-role="menu" class="menu">
+                <button slot="trigger" class="button">
+                  <b-icon icon="menu-down" />
+                </button>
+                <b-dropdown-item v-if="(checkrol(1))" @click="eliminar(region)">
+                  Eliminar
+                </b-dropdown-item>
+                <b-dropdown-item>
+                  Configurar
+                </b-dropdown-item>
+                <b-dropdown-item @click="info(region)">
+                  Obtener info
+                </b-dropdown-item>
+              </b-dropdown>
             </div>
           </div>
         </div>
-        <div class="column is-one-quarter">
-          <div class="card empresa-card is-hoverable" @click="AltaRegion()">
+        <div v-if="(checkrol(1))" class="column is-one-quarter">
+          <div class="card empresa-card card-access is-hoverable" @click="AltaRegion()">
             <div class="card-image">
               <figure class="image is-4by3">
                 <div class="empresa-name2 box">
-                  <font-awesome-icon icon="plus" class="agregarempresa" />
+                  <p>+</p>
                 </div>
               </figure>
+              <div class="empresa-name">
+                <p>Agregar Región</p>
+              </div>
             </div>
           </div>
         </div>
@@ -35,45 +53,44 @@
           </div>
         </div>
         <div class="modal-card-body">
-          <b-field label="Nombre de la region">
+          <b-field label="Nombre de la región">
             <b-input
+              v-model="formRegion.Nombre_Region"
               type="text"
-              :value="formRegion.Nombre_Region"
               placeholder="Empresa"
               required
             />
           </b-field>
-          <b-field label="Ubicación de la region">
+          <b-field label="Ubicación de la región">
             <b-input
+              v-model="formRegion.Ubicacion"
               type="text"
-              :value="formRegion.Ubicacion"
               placeholder="Ubicación"
               required
             />
           </b-field>
-          <b-field label="Telefono de la region">
+          <b-field label="Teléfono de la región">
             <b-input
+              v-model="formRegion.Telefono"
               type="text"
-              :value="formRegion.telefono"
               placeholder="Teléfono"
               required
             />
           </b-field>
-          <b-field label="Correo electrónico de la region">
+          <b-field label="Correo electrónico de la región">
             <b-input
+              v-model="formRegion.Correo"
               type="text"
-              :value="formRegion.email"
               placeholder="Correo"
               required
             />
           </b-field>
-
-          <!-- <div id="myDropzone" class="dropzone">
-                            <div class="dz-message" data-dz-message>
-                              Arrastra aquí una imagen JPEG (max 356KB, 390x250px) o haz clic para
-                              seleccionarla.
-                            </div>
-                          </div> -->
+          <div id="myDropzone" class="dropzone dz-preview">
+            <div class="dz-message" data-dz-message>
+              Arrastra aquí una imagen JPEG (max 500KB, 390x250px) o haz clic para
+              seleccionarla.
+            </div>
+          </div>
         </div>
         <footer class="modal-card-foot">
           <b-button
@@ -83,7 +100,7 @@
           <b-button
             label="Dar Alta"
             type="is-primary"
-            @click="guardar"
+            @click="createRegiones(formRegion)"
           />
         </footer>
       </div>
@@ -94,51 +111,28 @@
 <script>
 import redirect from '@/mixins/redirect'
 import { mapState } from 'vuex'
+import Dropzone from 'dropzone'
 
 export default {
   name: 'Regiones',
   mixins: [redirect],
   fetch () {
-    this.$store.push('setTitleStack', ['Regiones'])
+    this.$store.commit('setTitleStack', ['Regiones de la empresa ' + this.$route.query.Nombre_Empresa])
   },
   data () {
     return {
       horaActual: '',
-      lista_regiones: [
-        {
-          IdRegion: 1,
-          Nombre_Region: 'Mexico',
-          Ubicacion: '08-05-2024',
-          telefono: '1234567891',
-          email: '',
-          fk_IdEmpresa: ''
-        },
-        {
-          IdRegion: 2,
-          Nombre_Region: 'Mérida',
-          Ubicacion: '08-05-2024',
-          telefono: '1234567891',
-          email: '',
-          fk_IdEmpresa: ''
-        },
-        {
-          IdRegion: 3,
-          Nombre_Region: 'Campeche',
-          Ubicacion: '08-05-2024',
-          telefono: '1234567891',
-          email: '',
-          fk_IdEmpresa: ''
-        }
-      ],
+      lista_regiones: [],
       mostrarModal: false, // Variable para controlar la visibilidad del modal
       regionseleccionado: [],
       formRegion: {
-        IdRegion: 3,
         Nombre_Region: '',
+        ImagenRegion: '',
         Ubicacion: '',
-        telefono: '',
-        email: '',
-        fk_IdEmpresa: ''
+        Telefono: '',
+        Correo: '',
+        fk_IdEmpresa: this.$route.query.IdEmpresa,
+        is_active: true
       },
       formEmpresa: {
         IdEmpresa: 'id',
@@ -155,35 +149,113 @@ export default {
   },
 
   mounted () {
-    this.obtenerHoraActual()
-    // Actualizar la hora cada segundo
-    setInterval(() => {
-      this.obtenerHoraActual()
-    }, 1000)
+    Dropzone.autoDiscover = false// Deshabilitar la inicialización automática de Dropzone
+    this.getfkEmpresa()
+    this.getRegiones()
   },
   methods: {
+    checkrol (rol) {
+      if (this.$store.state.user.groups[0] === rol) {
+        return true
+      } else {
+        return false
+      }
+    },
+    info (region) {
+      this.$buefy.dialog.alert({
+        title: 'Información de la Región',
+        message: `<b>Nombre: </b>${region.Nombre_region}<br>
+                  <b>Ubicación: </b> ${region.Ubicacion} <br>
+                  <b>Teléfono: </b> ${region.Telefono} <br>
+                  <b>Correo: </b> ${region.Correo} <br>
+                  `,
+        confirmText: 'Aceptar'
+      })
+    },
+    eliminar (region) {
+      this.$buefy.dialog.confirm({
+        title: 'Eliminación de Región',
+        message: `¿Estás seguro de que deseas eliminar la región ${region.Nombre_region}?`,
+        type: 'is-danger',
+        hasIcon: true,
+        iconPack: 'fas',
+        icon: 'exclamation-circle',
+        cancelText: 'Cancelar',
+        confirmText: 'Eliminar',
+        canCancel: true,
+        onConfirm: async () => {
+          try {
+            await this.$store.dispatch('modules/regiones/delRegion', region.IdRegion)
+            this.getRegiones()
+            this.$buefy.snackbar.open({
+              message: 'Region eliminado correctamente',
+              type: 'is-success'
+            })
+          } catch {
+            this.$buefy.snackbar.open({
+              message: 'Error al eliminar la region',
+              type: 'is-danger'
+            })
+          }
+        }
+      })
+    },
+    baseUrl (url) {
+      return process.env.baseUrl + url // Reemplaza esto con la URL base de tu API
+    },
+    async getRegiones () {
+      try {
+        const response = await this.$store.dispatch('modules/regiones/getRegion', this.$route.query.IdEmpresa)
+        console.log(response)
+        this.lista_regiones = response
+      } catch {
+        this.$buefy.snackbar.open({
+          message: 'Error al cargar las regiones',
+          type: 'is-danger'
+        })
+      }
+    },
+    async createRegiones (form) {
+      if (form.Nombre_Region) {
+        const formData = new FormData()
+        formData.append('Nombre_region', form.Nombre_Region)
+        formData.append('ImagenEmpresa', form.ImagenRegion)
+        formData.append('Ubicacion', form.Ubicacion) // Agrega el archivo al FormData, donde 'file' es el archivo seleccionado
+        formData.append('Telefono', form.Telefono)
+        formData.append('Correo', form.Correo)
+        formData.append('fk_IdEmpresa', form.fk_IdEmpresa)
+        formData.append('is_active', form.is_active)
+        try {
+          const response = await this.$store.dispatch('modules/regiones/createRegion', formData)
+          this.close()
+          this.$buefy.snackbar.open({
+            message: 'Región creada con éxito',
+            type: 'is-success'
+          })
+          this.getRegiones()
+          return response.data
+        } catch {
+          this.$buefy.snackbar.open({
+            message: 'Error al crear la empresa',
+            type: 'is-danger'
+          })
+        }
+      } else {
+        this.$buefy.snackbar.open({
+          message: 'Por favor ingresa un nombre',
+          type: 'is-danger'
+        })
+      }
+    },
     DatosEmpresa () {
-      this.formEmpresa.IdEmpresa = this.$route.query.IdRegion
       this.formEmpresa.Nombre_Empresa = this.$route.query.Nombre_Empresa
-
-      const rutaImagen = this.$route.query.URL_img
-      console.log(rutaImagen.replace(/^.*?(\bassets\/.*)$/, '/$1'))
       return this.formEmpresa.Nombre_Empresa
     },
-    rutaimg () {
-
+    getfkEmpresa () {
+      this.formRegion.fk_IdEmpresa = this.$route.query.IdEmpresa
     },
     prueba () {
       this.$router.go(-1)
-    },
-    obtenerHoraActual () {
-      const fecha = new Date()
-      const horas = fecha.getHours()
-      const minutos = fecha.getMinutes()
-      this.horaActual = `${this.agregarCero(horas)}:${this.agregarCero(minutos)}`
-    },
-    agregarCero (numero) {
-      return numero < 10 ? '0' + numero : numero
     },
     config () {
       alert('Aqui se redirige al modulo de configuración')
@@ -196,9 +268,9 @@ export default {
     AltaRegion (lista) {
       this.regionseleccionado = lista
       this.mostrarModal = true
-      // setTimeout(() => {
-      //   this.initDropzone();
-      // }, 100);
+      setTimeout(() => {
+        this.initDropzone()
+      }, 100)
     },
     // Método para cerrar el modal
     close () {
@@ -210,48 +282,60 @@ export default {
     },
     guardar () {
       this.formEmpresa.URL_img = this.imagenSeleccionada
-      console.log(this.formEmpresa)
       // this.lista_empresas.push(this.formEmpresa)
     },
-    guardarArchivos () {
-      // Procesa la cola de archivos cuando se presiona el botón de guardar
-      console.log(this.myDropzone)
-    },
     initDropzone () {
-      const self = this
-      this.$dropzone('#myDropzone', {
+      const vm = this
+      const myDropzone = new Dropzone('#myDropzone', {
         autoProcessQueue: false, // Desactiva la carga automática de archivos
         url: '/upload',
-        maxFilesize: 356, // Tamaño máximo en KB
-        acceptedFiles: 'image/jpeg', // Solo se permiten imágenes JPEG
-        maxFiles: 1, // Solo se permite cargar una imagen
-        dictDefaultMessage:
-              'Arrastra aquí una imagen JPEG (max 356KB, 390x250px) o haz clic para seleccionarla',
+        maxFilesize: 0.5, // Tamaño máximo del archivo en MB
+        maxFiles: 1, // Número máximo de archivos permitidos
+        acceptedFiles: 'image/jpeg', // Tipos de archivos aceptados (solo imágenes JPEG)
+        dictDefaultMessage: 'Arrastra archivos aquí o haz clic para cargar',
+        dictInvalidFileType: 'Solo se permiten archivos JPG',
+        dictFileTooBig: 'El archivo es demasiado grande (máximo 0.5 MB)',
         thumbnailWidth: 200, // Ancho de la imagen previa en píxeles
         thumbnailHeight: 200, // Alto de la imagen previa en píxeles
         // Habilitar la eliminación de archivos
-        addRemoveLinks: true,
+        addRemoveLinks: true
+      })
 
-        init () {
-          this.on('addedfile', function (file) {
-            console.log('Archivo agregado:', file)
-            // Guarda la imagen cargada en la variable
-            self.imagenSeleccionada = `@/assets/imgEmpresas/${file.name}`
-            console.log('Archivo agregado a la variable:', self.imagenSeleccionada)
-          })
-        }
+      myDropzone.on('addedfile', function (file) {
+        vm.formRegion.ImagenRegion = file
+      })
+      // Manejar eventos de Drag and Drop
+      myDropzone.on('dragover', function () {
+        document.querySelector('#my-modal-dropzone').classList.add('dragover')
+      })
+
+      myDropzone.on('dragleave', function () {
+        document.querySelector('#my-modal-dropzone').classList.remove('dragover')
+      })
+
+      // Manejar eventos de carga de archivos
+      myDropzone.on('processing', function (file) {
+        // Acciones antes de cargar el archivo
+      })
+
+      myDropzone.on('error', function (file, errorMessage) {
+        this.removeFile(file)
+        vm.$buefy.snackbar.open({
+          message: 'El peso de la imagen excede el limite',
+          type: 'is-danger'
+        })
       })
     }
   },
   head () {
     return {
-      title: 'Login - AgenteMonitor'
+      title: 'Regiones - AgenteMonitor'
     }
   }
 }
 </script>
 
-    <style scoped>
+<style scoped>
       .full_page {
         width: 100%;
         height: 100vh;
@@ -315,21 +399,14 @@ export default {
     }
 
     .empresa-card {
-    cursor: pointer;
     position: relative;
   }
+  .card-access{
+      cursor: pointer;
+    }
   .empresa-name {
-    position: absolute;
-    top: 0%;
-    left: 0%;
     width: 100%;
     height: 100%;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-    padding: 5px 10px; /* Añade espacio alrededor del texto */
-    border-radius: 5px; /* Añade bordes redondeados */
-    font-size: 30px; /* Tamaño del texto */
-    z-index: 20;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -355,4 +432,39 @@ export default {
     width: 35px;
     color: rgb(255, 255, 255);
   }
-    </style>
+  .dropzone {
+    border: 2px dashed #cccccc;
+    border-radius: 10px;
+    min-height: 150px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .dropzone:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* Opcional: Estilos para resaltar el área al arrastrar archivos */
+  .dropzone.dragover {
+    background-color: #e0e0e0;
+  }
+
+  /* Opcional: Estilos para el mensaje de texto dentro del Dropzone */
+  .dropzone-text {
+    font-size: 16px;
+    color: #070707;
+  }
+
+  /* Opcional: Estilos para los mensajes de error */
+  .dropzone-error {
+    color: #ff0000;
+  }
+  .menu{
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    z-index: 50;
+  }
+</style>

@@ -2,8 +2,25 @@
   <nav v-show="isNavBarVisible" id="navbar-main" class="navbar is-fixed-top">
     <div class="navbar-brand">
       <p
+        :title="toggleTooltip"
+        style="cursor:pointer; background-color: #B9C2B8;clip-path: polygon(0 0, 100% 0, 70% 100%, 0% 100%);width: 70px;"
+        class="navbar-item is-desktop-icon-only is-hidden-touch"
+        @click.prevent="menuToggle"
+      >
+        <b-icon :icon="menuToggleIcon" />
+      </p>
+      <p
+        style="cursor:pointer; background-color: #B9C2B8;clip-path: polygon(0 0, 100% 0, 70% 100%, 0% 100%);width: 70px;"
+        class="navbar-item is-hidden-desktop"
+        @click.prevent="menuToggleMobile"
+      >
+        <b-icon :icon="menuToggleMobileIcon" />
+      </p>
+    </div>
+    <!-- <div class="navbar-brand">
+      <p
         title="Home"
-        style="cursor:pointer"
+        style="cursor:pointer; background-color: #B9C2B8;clip-path: polygon(0 0, 100% 0, 70% 100%, 0% 100%);width: 70px;"
         class="navbar-item is-desktop-icon-only is-hidden-touch"
         @click="home"
       >
@@ -11,13 +28,13 @@
       </p>
       <p
         title="Home"
-        style="cursor:pointer"
+        style="cursor:pointer; background-color: #B9C2B8;clip-path: polygon(0 0, 100% 0, 70% 100%, 0% 100%);width: 70px;"
         class="navbar-item is-hidden-desktop"
         @click="home"
       >
         <b-icon icon="home" />
       </p>
-    </div>
+    </div> -->
     <div class="navbar-brand is-right">
       <p
         style="cursor:pointer"

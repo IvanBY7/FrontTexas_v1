@@ -39,7 +39,7 @@
 .switch {
   &:hover, &:focus {
     input[type=checkbox] + .check {
-      background: transparent;
+      // background: transparent;
     }
   }
 
@@ -52,11 +52,11 @@
       }
     }
     + .check {
-      background: transparent;
+      // background: transparent;
       border: $checkbox-border;
 
       &:before {
-        background: transparent;
+        // background: transparent;
         border: $checkbox-border;
         box-shadow: none;
       }
@@ -82,7 +82,7 @@
 
 .b-slider {
   .b-slider-track {
-    background: transparent;
+    // background: transparent;
     border: 1px solid $base-color;
   }
 

@@ -44,7 +44,7 @@
             </a>
             <hr class="navbar-divider">
             <a class="navbar-item">
-              <b-icon icon="logout" custom-size="default" />
+              <b-icon icon="logout" class="custom-icon-size" />
               <span>Log Out</span>
             </a>
           </div>

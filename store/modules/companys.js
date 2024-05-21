@@ -1,4 +1,4 @@
-import { createcompany, getUserCompany } from '~/api/companys'
+import { createcompany, getUserCompany, deletCompany } from '~/api/companys'
 
 export const actions = {
   async createCompany ({ commit }, query) {
@@ -7,6 +7,10 @@ export const actions = {
   },
   async getCompany ({ commit }, query) {
     const res = await getUserCompany(query)
+    return res
+  },
+  async delCompany ({ commit }, query) {
+    const res = await deletCompany(query)
     return res
   }
 }

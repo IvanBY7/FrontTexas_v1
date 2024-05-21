@@ -11,9 +11,14 @@ export const createcompany = data => {
   })
 }
 export const getUserCompany = data => {
-  console.log(data)
   return request({
     url: '/empresa/user-companies/?email=' + data,
     method: 'GET'
+  })
+}
+export const deletCompany = data => {
+  return request({
+    url: '/empresa/delete-company-by-name/?IdEmpresa=' + data,
+    method: 'POST'
   })
 }

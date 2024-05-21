@@ -1,7 +1,25 @@
 <template>
   <div id="app">
+    <!-- <div class="float-button">
+      <float-action-button />
+    </div> -->
     <nav-bar />
     <b-loading v-model="isLoading" :is-full-page="true" :can-cancel="false" />
+    <aside-menu
+      :menu="menu"
+      :menu-bottom="menuBottom"
+      :class="{ 'has-secondary': !!menuSecondary }"
+      @menu-click="menuClick"
+    />
+    <aside-menu
+      v-if="menuSecondary"
+      :menu="menuSecondary"
+      :is-secondary="true"
+      :label="menuSecondaryLabel"
+      :icon="menuSecondaryIcon"
+      @menu-click="menuClick"
+      @close="menuSecondaryCloseClick"
+    />
     <title-bar :title-stack="titleStack" />
     <nuxt />
   </div>
@@ -31,7 +49,13 @@ export default {
           'GENERAL',
           [
             {
-              to: '/',
+              to: '/sensors/dashboard',
+              state: '1primary',
+              icon: 'chart-bar',
+              label: 'Inicio'
+            },
+            {
+              to: '/empresas/Empresas',
               state: '1primary',
               icon: 'home',
               label: 'Inicio'
@@ -43,75 +67,81 @@ export default {
           'GENERAL',
           [
             {
-              to: '/',
+              to: '/sensors/dashboard',
+              label: 'Inicio',
+              state: '1warning',
+              icon: 'chart-bar'
+            },
+            {
+              to: '/empresas/Empresas',
               state: '1primary',
               icon: 'home',
-              label: 'Inicio'
-            },
-            {
-              to: '/sensors/areas-trabajo',
-              label: 'Sensores',
-              state: '1warning',
-              icon: 'shield-plus'
-            },
-            {
-              to: '/clients',
-              label: 'Clientes',
-              state: '1success',
-              icon: 'users-alt'
-            },
-            {
-              to: '/employees',
-              label: 'Vendedores',
-              state: '1orange',
-              icon: 'user-md'
-            },
-            {
-              to: '/insurances',
-              label: 'Aseguradoras',
-              state: '1info',
-              icon: 'university'
-            },
-            {
-              to: '/products',
-              label: 'Productos',
-              state: '1white',
-              icon: 'archive'
+              label: 'Empresas'
             }
+            // {
+            //   to: '/clients',
+            //   label: 'Clientes',
+            //   state: '1success',
+            //   icon: 'users-alt'
+            // }
+            // {
+            //   to: '/employees',
+            //   label: 'Vendedores',
+            //   state: '1orange',
+            //   icon: 'user-md'
+            // },
+            // {
+            //   to: '/insurances',
+            //   label: 'Aseguradoras',
+            //   state: '1info',
+            //   icon: 'university'
+            // },
+            // {
+            //   to: '/products',
+            //   label: 'Productos',
+            //   state: '1white',
+            //   icon: 'archive'
+            // }
           ],
           'ADMINISTRACIÓN',
           [
+            {
+              to: '/roles',
+              label: 'Roles',
+              state: '1warning',
+              icon: 'cog'
+            }
             // {
             //   to: '/roles',
             //   label: 'Roles',
             //   state: '1warning',
             //   icon: 'lock'
             // },
-            {
-              to: '/reporting',
-              label: 'Reportes',
-              state: '1primary',
-              icon: 'file-download-alt'
-            },
-            {
-              label: 'Mensajería',
-              state: '1success',
-              icon: 'envelopes',
-              menu: [
-                {
-                  to: '/templates',
-                  label: 'Plantillas',
-                  state: '1dark',
-                  icon: 'fast-mail-alt'
-                },
-                {
-                  to: '/messages',
-                  label: 'Envíos',
-                  state: '1dark',
-                  icon: 'envelope-send'
-                }
-              ]
-            }
+            // {
+            //   to: '/reporting',
+            //   label: 'Reportes',
+            //   state: '1primary',
+            //   icon: 'file-download-alt'
+            // },
+            // {
+            //   label: 'Mensajería',
+            //   state: '1success',
+            //   icon: 'envelopes',
+            //   menu: [
+            //     {
+            //       to: '/templates',
+            //       label: 'Plantillas',
+            //       state: '1dark',
+            //       icon: 'fast-mail-alt'
+            //     },
+            //     {
+            //       to: '/messages',
+            //       label: 'Envíos',
+            //       state: '1dark',
+            //       icon: 'envelope-send'
+            //     }
+            //   ]
+            // }
           ]
         ]
       }
@@ -249,9 +279,9 @@ export default {
   max-height: 250px;
   overflow-y: scroll;
 }
-@media screen and (min-width: 1024px) {
+/* @media screen and (min-width: 1024px) {
     html.has-aside-left nav.navbar, html.has-aside-left body {
         padding-left: 0;
     }
-}
+} */
 </style>

@@ -1,10 +1,6 @@
-import { getRegisters, getDispositivos, getSensores, getRegistros } from '~/api/sensors'
+import { getDispositivos, getSensores, getRegistros, getRegistrosbyrango } from '~/api/sensors'
 
 export const actions = {
-  async getRegisters ({ commit }, query) {
-    const res = await getRegisters(query)
-    return res
-  },
   async getDispositivos ({ commit }, query) {
     const res = await getDispositivos(query)
     return res
@@ -15,6 +11,10 @@ export const actions = {
   },
   async getRegistersbySensor ({ commit }, id) {
     const res = await getRegistros(id)
+    return res
+  },
+  async getRegistersbySensorbyRango ({ commit }, data) {
+    const res = await getRegistrosbyrango(data)
     return res
   }
 }

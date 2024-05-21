@@ -5,30 +5,56 @@
         <div class="box">
           <div class="columns mt-1">
             <div class="column left has-text-centered is-hidden-mobile">
-              <h1 class="title is-3">Agente Monitor</h1>
+              <h1 class="title is-3">
+                Agente Monitor
+              </h1>
               <h2 class="subtitle colored is-5">
                 Gestión para aseguradoras.
               </h2>
-              <br />
+              <br>
               <img
                 class="logo"
                 tag="img"
                 src="../../assets/logo.png"
                 width="200px"
                 alt="Logo"
-              />
+              >
+              <br><br>
+              <b-field>
+                <b-switch
+                  v-model="is_ceo"
+                  :value="true"
+                  type="is-success"
+                >
+                  Soy dueño de una empresa
+                </b-switch>
+              </b-field>
             </div>
             <div class="column right">
               <div class="has-text-centered mb-5">
-                <h1 class="title is-4">Regístrate ahora!</h1>
+                <h1 class="title is-4">
+                  Regístrate ahora!
+                </h1>
                 <p class="description">
                   Al crear una cuenta aceptas nuestros términos y condiciones.
                 </p>
               </div>
 
               <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
-                <form @submit="false" class="has-text-left">
+                <form class="has-text-left">
                   <BInputWithValidation
+                    v-model="form.username"
+                    :normal="true"
+                    margin="mb-4"
+                    label-position="on-border"
+                    label="Nombre de usuario"
+                    rules="required"
+                    type="text"
+                    name="nombre de usuario"
+                    placeholder="JohnMendez"
+                  />
+                  <BInputWithValidation
+                    v-model="form.first_name"
                     :normal="true"
                     margin="mb-4"
                     label-position="on-border"
@@ -37,9 +63,9 @@
                     type="text"
                     name="first_name"
                     placeholder="John"
-                    v-model="form.first_name"
                   />
                   <BInputWithValidation
+                    v-model="form.last_name"
                     :normal="true"
                     margin="mb-4"
                     label-position="on-border"
@@ -48,9 +74,9 @@
                     type="text"
                     name="lastname"
                     placeholder="Doe"
-                    v-model="form.last_name"
                   />
                   <BInputWithValidation
+                    v-model="form.email"
                     :normal="true"
                     margin="mb-4"
                     label-position="on-border"
@@ -58,21 +84,22 @@
                     rules="required|email"
                     type="email"
                     name="email"
-                    v-model="form.email"
                     placeholder=""
                   />
                   <BInputWithValidation
+                    v-if="!is_ceo"
+                    v-model="form.company"
                     :normal="true"
                     margin="mb-4"
                     label-position="on-border"
-                    label="Empresa"
+                    label="Clave de empresa"
                     rules="required"
                     type="text"
-                    name="company"
-                    placeholder="Seguros example"
-                    v-model="form.company"
+                    name="clave"
+                    placeholder="clave"
                   />
                   <BInputWithValidation
+                    v-model="form.password"
                     :normal="true"
                     margin="mb-4"
                     label-position="on-border"
@@ -83,10 +110,9 @@
                     type="password"
                     placeholder="Contraseña"
                     password-reveal
-                    vid="password"
-                    v-model="form.password"
                   />
                   <BInputWithValidation
+                    v-model="form.password_confirm"
                     :normal="true"
                     margin="mb-4"
                     label-position="on-border"
@@ -96,14 +122,13 @@
                     type="password"
                     placeholder="Confirmar contraseña"
                     password-reveal
-                    v-model="form.password_confirm"
                   />
-                  <hr />
+                  <hr>
                   <b-field>
                     <button
                       class="button is-block is-fullwidth"
                       :class="{ 'is-loading': isLoading }"
-                      @click.prevent="handleSubmit(signup)"
+                      @click.prevent="handleSubmit(submit)"
                     >
                       Registrarse
                     </button>
@@ -124,12 +149,12 @@
       </div>
       <vue-particles
         class="particles"
-        color="#dedede"
-        :particle-opacity="0.7"
-        :particles-number="80"
+        color="#aaaaaa"
+        :particle-opacity="0.9"
+        :particles-number="120"
         shape-type="circle"
         :particle-size="3"
-        lines-color="#dedede"
+        lines-color="#aaaaaa"
         :lines-width="1"
         :line-linked="true"
         :line-opacity="0.4"
@@ -152,22 +177,38 @@ export default {
   mixins: [redirect],
   data () {
     return {
+      is_ceo: true,
       isLoading: false,
       form: {
         username: null,
-        password: null
+        password: null,
+        groups: []
       }
     }
   },
   methods: {
-    submit () {
+    async submit () {
       this.isLoading = true
+      console.log(this.form)
+      if (this.is_ceo) {
+        this.form.groups.push(1)
+      } else {
+        this.form.groups.push(2)
+      }
       try {
-        // await this.$store.dispatch('modules/auth/login', this.form)
-        this.$router.push('/')
+        await this.$store.dispatch('modules/users/createOrUpdate', this.form)
+        this.$buefy.dialog.alert({
+          title: 'Cuenta registrada',
+          message: `Tu cuenta ha sido registrada<br>
+                    revisa tu correo para activar tu cuenta<br>`,
+          confirmText: 'Aceptar',
+          onConfirm: () => {
+            window.location.reload()
+          }
+        })
       } catch (error) {
         this.$buefy.snackbar.open({
-          message: 'Credenciales incorrectas',
+          message: 'Eror al registrarse',
           type: 'is-danger'
         })
       } finally {
@@ -177,7 +218,7 @@ export default {
   },
   head () {
     return {
-      title: 'Login — AgenteMonitor'
+      title: 'Registro — AgenteMonitor'
     }
   }
 }
@@ -185,17 +226,20 @@ export default {
 
 <style scoped>
 .button {
-  background-color: #999999;
+  background-color: #828787;
   transition: 0.6s;
+  color: white;
+  border: none;
 }
 
 .button:hover {
-  background: rgba(92, 91, 91, 0.8);
+  background: rgba(158, 155, 155, 0.8);
   transition: 0.6s;
+  color: black;
 }
 
 .link {
-  color: rgb(4, 0, 252);
+  color: rgb(63, 61, 154);
 }
 
 .link:hover {
@@ -221,16 +265,16 @@ export default {
 .hero {
   background: linear-gradient(
     50deg,
-    #333333 5%, /* gris oscuro */
-    #444444 9.87%, /* gris */
-    #555555 30.04%, /* gris medio */
-    #666666 36.71%, /* gris */
-    #777777 64.41%, /* gris */
-    #888888 76.96%, /* gris */
-    #999999 99.96% /* gris */
+    #e8e8e8 5%, /* gris oscuro */
+    #eeeeee 9.87%, /* gris */
+    #f2f2f2 30.04%, /* gris medio */
+    #f4f4f4 36.71%, /* gris */
+    #f6f6f6 64.41%, /* gris */
+    #f8f8f8 76.96%, /* gris */
+    #ffffff 99.96% /* gris */
   );
 }
 .box {
-  background-color: white;
+  background-color: #b4beb6;
 }
 </style>

@@ -204,6 +204,7 @@ html.has-aside-right {
     }
   }
   html {
+    background-color: #e0e0e0;
     &.has-aside-mobile-expanded {
       #app, nav.navbar {
         margin-left: $aside-mobile-width;
@@ -234,6 +235,7 @@ html.has-aside-right {
 
 @include desktop {
   html {
+    background-color: #e0e0e0;
     &.has-aside-left, &.has-aside-right {
       nav.navbar, body {
         @include transition(padding);
@@ -345,6 +347,7 @@ html.has-aside-right {
 
 @include widescreen {
   html {
+    background-color: #e0e0e0;
     &.has-aside-right {
       body {
         padding-right: $aside-right-width;
