@@ -172,6 +172,7 @@ export default {
 
 .particles {
   width: 100%;
+  height: 100vh;
 }
 
 .hero {

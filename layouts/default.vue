@@ -284,4 +284,9 @@ export default {
         padding-left: 0;
     }
 } */
+section.section.is-title-bar {
+    padding: 1.5rem;
+    border-bottom: 1px solid #f1f2f2;
+    text-align: center;
+}
 </style>

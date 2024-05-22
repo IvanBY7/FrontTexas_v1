@@ -1,6 +1,6 @@
 <!-- components/GaugeChart.vue -->
 <template>
-  <div ref="chart" style="width: 100%; height: 100%;" />
+  <div ref="chart" class="chart-contain" />
 </template>
 
 <script>
@@ -80,9 +80,9 @@ export default {
               lineStyle: {
                 width: 30,
                 color: [
-                  [this.valormin / (this.valormax * 1.5), '#cc0000'],
-                  [this.valormax / (this.valormax * 1.5), '#007500'],
-                  [1, '#cc0000']
+                  [this.valormin / (this.valormax * 1.5), '#cf2d2d'],
+                  [this.valormax / (this.valormax * 1.5), '#294D99'],
+                  [1, '#cf2d2d']
                 ]
               }
             },
@@ -149,4 +149,14 @@ export default {
 
 <style scoped>
 /* Estilos específicos del componente */
+.chart-contain{
+  width: 100%;
+  height: 300px;
+}
+@media screen and (max-width: 850px), print {
+  .chart-contain{
+    width: 100%;
+    height: 250px;
+  }
+}
 </style>

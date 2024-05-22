@@ -475,7 +475,7 @@ export default {
 
 /* Opcional: Estilos para el enlace "Eliminar archivo" */
 .dropzone-remove-link {
-  color: #cc0000;
+  color: #cf2d2d;
   text-decoration: underline;
   cursor: pointer;
 }
