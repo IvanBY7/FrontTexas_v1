@@ -36,7 +36,7 @@
               </thead>
               <tbody>
                 <tr v-for="(row, index) in lista_registros" :key="index">
-                  <td>{{ getfecha(row.created_at) }}</td>
+                  <td>{{ getHora(row.created_at) }}</td>
                   <td>{{ row.Valor }}</td>
                 </tr>
               </tbody>
@@ -62,7 +62,7 @@
           </div>
         </div>
         <!-- Gráfica de Dona -->
-        <div class="column right has-text-centered">
+        <div class="column has-text-centered">
           <div class="cont_grafica">
             <p class="leyenda">
               Temperatura min {{ rangoMin }}°C, max {{ rangoMax }}°C
@@ -75,7 +75,7 @@
                 :valor="valordona"
                 :valormin="rangoMin"
                 :valormax="rangoMax"
-                :tipo_dato="tipo_dato"
+                :tipodato="tipo_dato"
               />
             </div>
           </div>
@@ -92,10 +92,10 @@
               :data="lista_registros"
             >
               <b-table-column v-slot="props" label="Valor" field="Valor" sortable>
-                {{ props.row.Valor }}
+                {{ getValor(props.row.Valor) }}{{ props.row.fk_IdSensor.fk_IdTipo.Tipo_dato }}
               </b-table-column>
               <b-table-column v-slot="props" label="Fecha de Registro" field="created_at" sortable>
-                {{ getfecha(props.row.created_at) }}
+                {{ getHora(props.row.created_at) }}
               </b-table-column>
 
               <section slot="empty" class="section">
@@ -150,17 +150,6 @@
         </table>
       </div>
     </div>
-    <!-- <div
-      v-if="rangoMax"
-      class="container"
-    >
-      <GaugeChart
-        :valor="valordona"
-        :valormin="rangoMin"
-        :valormax="rangoMax"
-        :tipo_dato="tipo_dato"
-      />
-    </div> -->
   </div>
 </template>
 
@@ -184,9 +173,6 @@ export default {
     GaugeChart
   },
   mixins: [redirect],
-  fetch () {
-    this.$store.commit('setTitleStack', ['Información sensor'])
-  },
   data () {
     return {
       isLoading: false,
@@ -214,6 +200,9 @@ export default {
     this.getregisterbyrango()
   },
   methods: {
+    getValor (valor) {
+      return parseFloat(valor).toFixed(2)
+    },
     sensorStatus (registros) {
       const lastRegistro = registros[registros.length - 1]
       return lastRegistro.Valor === '1.0' ? 'Abierto' : 'Cerrado'
@@ -261,15 +250,38 @@ export default {
       return ''
     },
     getfecha (fecha) {
-      const fechaFormateada = new Date(fecha).toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })
-      return fechaFormateada.replace(/:\d{2}\s/, ' ')
+      const opciones = {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        timeZone: 'America/Mexico_City',
+        hour12: false // Esto asegura que la hora se muestre en formato de 24 horas
+      }
+
+      const fechaFormateada = new Date(fecha).toLocaleString('es-MX', opciones)
+      return fechaFormateada
+    },
+    getHora (fecha) {
+      const opciones = {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'America/Mexico_City',
+        hour12: false // Esto asegura que la hora se muestre en formato de 24 horas
+      }
+
+      const fechaFormateada = new Date(fecha).toLocaleString('es-MX', opciones)
+      return fechaFormateada
+    },
+    updateTitleStack () {
+      console.log(this.lista_registros)
+      this.$store.commit('setTitleStack', ['Información del sensor del dia ' + this.getfecha(this.lista_registros[0].created_at)])
     },
     iniciagraficalineal (registroSensor) {
       if (!registroSensor || !registroSensor.length) {
         return
       }
       this.datacollection = {
-        labels: registroSensor.map(reg => this.getfecha(reg.created_at)),
+        labels: registroSensor.map(reg => this.getHora(reg.created_at)),
         datasets: [
           {
             label: 'Valores del Sensor',
@@ -324,6 +336,7 @@ export default {
         this.lista_registros = response.Registros
         this.iniciadona(response.Registros)
         this.iniciagraficalineal(response.Registros)
+        this.updateTitleStack()
       } catch {
         this.$buefy.snackbar.open({
           message: 'Error al cargar las regiones',

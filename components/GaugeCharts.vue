@@ -1,6 +1,6 @@
 <!-- components/GaugeChart.vue -->
 <template>
-  <div ref="chart" style="width: 100%; height: 400px;" />
+  <div ref="chart" style="width: 100%; height: 100%;" />
 </template>
 
 <script>
@@ -9,6 +9,14 @@ import * as echarts from 'echarts'
 export default {
   name: 'GaugeChart',
   props: {
+    valorsize: {
+      type: Number,
+      default: 0
+    },
+    fontsize: {
+      type: Number,
+      default: 0
+    },
     valor: {
       type: Number,
       default: 0
@@ -28,34 +36,40 @@ export default {
   },
   data () {
     return {
-      myChart: null
-    }
-  },
-  watch: {
-    valor (newValue) {
-      // Cuando cambia el valor desde el padre, actualiza el gráfico
-      this.updateChart(newValue)
+      myChart: null,
+      intervalId: null,
+      resizeObserver: null
     }
   },
   mounted () {
     this.initChart()
-    this.updateChart(this.valor) // Inicia el gráfico con el valor inicial
+    this.updateChart(this.valor, this.tipodato)
 
-    // Actualiza el gráfico cada 2 segundos (opcional)
-    setInterval(() => {
-      this.updateChart(this.valor)
-    }, 2000)
+    this.intervalId = setInterval(() => {
+      this.updateChart(this.valor, this.tipodato)
+    }, 15000)
+
+    this.resizeObserver = new ResizeObserver(() => {
+      this.myChart.resize()
+    })
+    this.resizeObserver.observe(this.$refs.chart)
   },
   beforeDestroy () {
+    if (this.intervalId) {
+      clearInterval(this.intervalId)
+    }
     if (this.myChart) {
       this.myChart.dispose()
+      this.myChart = null
+    }
+    if (this.resizeObserver) {
+      this.resizeObserver.unobserve(this.$refs.chart)
     }
   },
   methods: {
     initChart () {
-      // Inicializa ECharts
+      console.log(this.tipodato)
       this.myChart = echarts.init(this.$refs.chart)
-      // Opciones del gráfico
       const option = {
         series: [
           {
@@ -66,19 +80,20 @@ export default {
               lineStyle: {
                 width: 30,
                 color: [
-                  [(this.valormin / 150), '#cc0000'],
-                  [(this.valormax / 150), '#007500'],
+                  [this.valormin / (this.valormax * 1.5), '#cc0000'],
+                  [this.valormax / (this.valormax * 1.5), '#007500'],
                   [1, '#cc0000']
                 ]
               }
             },
             pointer: {
               itemStyle: {
-                color: 'auto'
+                color: 'auto',
+                with: 10
               }
             },
             axisTick: {
-              distance: -30,
+              distance: -20,
               length: 10,
               lineStyle: {
                 color: '#fff',
@@ -96,12 +111,13 @@ export default {
             axisLabel: {
               color: 'inherit',
               distance: 40,
-              fontSize: 15
+              fontSize: this.fontsize
             },
             detail: {
               valueAnimation: true,
-              formatter: '{value}°C',
-              color: 'inherit'
+              formatter: `${this.valor}${this.tipodato}`,
+              color: 'inherit',
+              fontSize: this.valorsize
             },
             data: [
               {
@@ -112,11 +128,9 @@ export default {
         ]
       }
 
-      // Establece las opciones iniciales del gráfico
       this.myChart.setOption(option)
     },
     updateChart (newValue) {
-      // Actualiza los datos del gráfico
       this.myChart.setOption({
         series: [
           {
@@ -133,6 +147,6 @@ export default {
 }
 </script>
 
-  <style scoped>
-  /* Estilos específicos del componente */
-  </style>
+<style scoped>
+/* Estilos específicos del componente */
+</style>

@@ -5,30 +5,29 @@
         <div v-for="(area, index) in lista_areas" :key="index" class="column is-one-quarter">
           <div class="card empresa-card is-hoverable">
             <div class="card-content">
+              <strong class="empresa-name">
+                <p>{{ area.Nombre_zona }}</p>
+              </strong>
               <div class="columns is-multiline">
-                <div v-for="(sensor,index2) in area.sensores" :key="index2" :class="['column', 'sensor-is-on-quarter']">
-                  <div :class="['card-access', estadoSensor(sensor), 'card']" @click="mostrarDetalles(sensor)">
-                    <p class="">
+                <div v-for="(sensor,index2) in area.sensores" :key="index2" :class="['column']">
+                  <div :class="['card-access', estadoSensor(sensor)]" @click="mostrarDetalles(sensor)">
+                    <p>
                       <b-icon :icon="sensor.tipo.Icono" class="custom-icon-size" />
                     </p>
                     <strong v-if="sensor.tipo.Indice_widget==1">
                       {{ getvalor(sensor.valor) }}{{ sensor.tipo.Tipo_dato }}
                     </strong>
                     <strong v-else-if="sensor.tipo.Indice_widget==2">
-                      Ultimo estado reportado: {{ estadoPuerta(sensor) }}
+                      {{ estadoPuerta(sensor) }}
                     </strong>
                     <strong v-else-if="sensor.tipo.Indice_widget==3">
                       {{ getvalor(sensor.valor) }}{{ sensor.tipo.Tipo_dato }}
                     </strong>
-                    <small class="textoligh">
-                      <br>
-                      Ultimo registro: {{ getfecha(sensor.Fecha_registro) }}
-                    </small>
                   </div>
+                  <small class="textoligh">
+                    Ultimo registro: <br> {{ getfecha(sensor.Fecha_registro) }}
+                  </small>
                 </div>
-              </div>
-              <div class="empresa-name">
-                <p>{{ area.Nombre_zona }}</p>
               </div>
               <b-dropdown aria-role="menu" class="menu">
                 <button slot="trigger" class="button">
@@ -50,14 +49,14 @@
         <div v-if="(checkrol(1))" class="column is-one-quarter">
           <div class="card empresa-card is-hoverable" @click="AltaRegion()">
             <div class="card-image">
+              <div class="empresa-name">
+                <p>Agregar Sucursal</p>
+              </div>
               <figure class="image is-4by3 card-access">
                 <div class="empresa-name2 box">
                   <p>+</p>
                 </div>
               </figure>
-              <div class="empresa-name">
-                <p>Agregar Sucursal</p>
-              </div>
             </div>
           </div>
         </div>
@@ -142,9 +141,16 @@ export default {
   computed: {
     ...mapState(['userName', 'userEmail', 'userFullName', 'user'])
   },
-
+  beforeDestroy () {
+    if (this.intervalId) {
+      clearInterval(this.intervalId)
+    }
+  },
   mounted () {
     this.getArea()
+    this.intervalId = setInterval(() => {
+      this.getArea()
+    }, 15000)
   },
   methods: {
     info (sensor) {
@@ -166,20 +172,19 @@ export default {
     },
     getfecha (fecha) {
       const opciones = {
-        year: 'numeric',
         month: 'long',
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
-        timeZone: 'America/Mexico_City'
+        timeZone: 'America/Mexico_City',
+        hour12: false // Esto asegura que la hora se muestre en formato de 24 horas
       }
 
       const fechaFormateada = new Date(fecha).toLocaleString('es-MX', opciones)
       return fechaFormateada
     },
     getvalor (valor) {
-      let valornum = parseFloat(valor)
-      valornum = valornum.toFixed(3)
+      const valornum = parseInt(valor)
       return valornum
     },
     estadoPuerta (sensor) {
@@ -345,7 +350,7 @@ export default {
 
 <style scoped>
 .textoligh{
-  font-weight: lighter;
+  font-weight: bolder;
   font-size: .8rem;
 }
 .mdi-24px.mdi-set, .mdi-24px.mdi:before {
@@ -391,7 +396,7 @@ export default {
       flex-direction: column;
       align-items: center;
       padding: inherit;
-      background-color: white;
+      background-color: rgb(255, 255, 255);
     }
     .config p{
       font-weight: bold;
@@ -416,13 +421,16 @@ export default {
     position: relative;
     display: flex;
     justify-content: center;
-    min-height: 15vh;
+    min-height: 25vh;
+    background-color: white;
   }
   .empresa-name {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 20px;
+    margin-bottom: 10px;
   }
   .empresa-name2 {
     position: absolute;
@@ -529,5 +537,36 @@ export default {
 .card-header:last-child, .card-content:last-child, .card-footer:last-child {
     border-bottom-left-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
+}
+@media screen and (min-width: 769px), print {
+    .columns:not(.is-desktop) {
+        display: flex;
+        justify-content: center;
+    }
+}
+.button {
+    background-color: transparent;
+    border-color: transparent;
+    border-width: 1px;
+    color: #363636;
+    cursor: pointer;
+    justify-content: center;
+    /* padding-bottom: calc(0.5em - 1px); */
+    /* padding-left: 1em; */
+    /* padding-right: 1em; */
+    /* padding-top: calc(0.5em - 1px); */
+    text-align: center;
+    white-space: nowrap;
+}
+.column {
+    display: block;
+    -ms-flex-preferred-size: 0;
+    flex-basis: auto;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -ms-flex-negative: 1;
+    flex-shrink: 1;
+    padding: 0.75rem;
 }
 </style>

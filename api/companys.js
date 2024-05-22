@@ -22,3 +22,9 @@ export const deletCompany = data => {
     method: 'POST'
   })
 }
+export const getsensorsbyCompany = data => {
+  return request({
+    url: `http://localhost:8000/api/v1/registers/get_sensors_by_company/${data}/`,
+    method: 'GET'
+  })
+}
