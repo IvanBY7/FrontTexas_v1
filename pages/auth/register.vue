@@ -218,7 +218,7 @@ export default {
   },
   head () {
     return {
-      title: 'Registro — AgenteMonitor'
+      title: 'Registro — Sistema de Monitoreo'
     }
   }
 }

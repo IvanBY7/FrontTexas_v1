@@ -42,7 +42,7 @@ export default {
   },
   head () {
     return {
-      title: 'Registro exitoso —AgenteMonitor'
+      title: 'Registro exitoso — Sistema de Monitoreo'
     }
   }
 }

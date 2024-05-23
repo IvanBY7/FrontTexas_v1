@@ -45,7 +45,7 @@ export default {
   },
   head () {
     return {
-      title: 'Error #1 —AgenteMonitor'
+      title: 'Error #1 - Sistema de Monitoreo'
     }
   }
 }

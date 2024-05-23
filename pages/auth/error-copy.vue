@@ -29,7 +29,7 @@ export default {
   },
   head () {
     return {
-      title: 'Error #2 — AgenteMonitor'
+      title: 'Error #2 — Sistema de Monitoreo'
     }
   }
 }

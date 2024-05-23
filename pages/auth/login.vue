@@ -12,7 +12,7 @@
                   src="../../assets/logo.png"
                   width="200px"
                   alt="Logo"
-                />
+                >
               </figure>
             </div>
             <form @submit="false">
@@ -49,7 +49,7 @@
                   </nuxt-link>
                 </strong>
               </small>
-              <hr />
+              <hr>
               <b-field>
                 <b-button
                   expanded
@@ -132,7 +132,7 @@ export default {
   },
   head () {
     return {
-      title: 'Login — AgenteMonitor'
+      title: 'Login — Sistema de Monitoreo'
     }
   }
 }

@@ -35,7 +35,7 @@
         <b-icon icon="home" />
       </p>
     </div> -->
-    <div class="navbar-brand is-right">
+    <!-- <div class="navbar-brand is-right">
       <p
         style="cursor:pointer"
         class="navbar-item navbar-item-menu-toggle is-hidden-desktop"
@@ -50,14 +50,14 @@
       >
         <b-icon :icon="menuNavBarToggleIcon" custom-size="default" />
       </p>
-    </div>
+    </div> -->
     <div
       class="navbar-menu fadeIn animated faster"
       :class="{ 'is-active': isMenuNavBarActive }"
     >
       <div class="navbar-end">
         <nav-bar-menu class="has-divider has-user-avatar">
-          <user-avatar />
+          <!-- <user-avatar /> -->
           <div class="is-user-name">
             <span>{{ userFullName || userName }}</span>
           </div>
@@ -78,15 +78,15 @@
             </a>
           </div>
         </nav-bar-menu>
-        <a
+        <!-- <a
           class="navbar-item has-divider is-desktop-icon-only"
           title="Dark mode"
           @click="darkModeToggle"
         >
           <b-icon :icon="darkModeToggleIcon" custom-size="default" />
           <span>Dark mode</span>
-        </a>
-        <a
+        </a> -->
+        <!-- <a
           class="navbar-item has-divider is-desktop-icon-only"
           title="Mensajes del sistema"
         >
@@ -96,7 +96,7 @@
             :class="{ 'has-update-mark': hasUpdates }"
           />
           <span>Mensajes del sistema</span>
-        </a>
+        </a> -->
         <a
           class="navbar-item has-divider is-desktop-icon-only"
           title="Hora"

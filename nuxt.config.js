@@ -4,7 +4,7 @@ export default {
    */
 
   head: {
-    title: 'AgenteMonitor',
+    title: 'Sistema de monitoreo',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -112,7 +112,7 @@ export default {
       source: 'static/icon.png'
     },
     manifest: {
-      name: 'AgenteMonitor',
+      name: 'Sistema de Monitoreo',
       lang: 'es',
       theme_color: '#ff9503',
       useWebmanifestExtension: false

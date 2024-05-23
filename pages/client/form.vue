@@ -202,7 +202,7 @@ export default {
   },
   head () {
     return {
-      title: 'Client — AgenteMonitor'
+      title: 'Client — Sistema de Monitoreo'
     }
   }
 }

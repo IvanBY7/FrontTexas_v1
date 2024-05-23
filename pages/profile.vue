@@ -31,7 +31,7 @@
                       {{ user.license.business_name }}
                     </span>
                     <br/>
-                    <small class="has-text-weight-light">AgenteMonitor</small>
+                    <small class="has-text-weight-light">Sistema de Monitoreo</small>
                   </div>
                 </div>
               </b-field>
@@ -132,7 +132,7 @@ export default {
   },
   head () {
     return {
-      title: 'Mi cuenta — AgenteMonitor'
+      title: 'Mi cuenta — Sistema de Monitoreo'
     }
   }
 }

@@ -342,7 +342,7 @@ export default {
   },
   head () {
     return {
-      title: 'Sucursales - AgenteMonitor'
+      title: 'Sucursales - Sistema de Monitoreo'
     }
   }
 }
@@ -360,16 +360,16 @@ export default {
   font-size: 48px;
 }
 .borde-estable {
-   border: 5px solid green;
+   border: 5px solid #294D99;
    border-radius: 15px; /* Cambia el color del borde para el estado activo */
   }
 
   .borde-peligro {
-   border: 5px solid red;
+   border: 5px solid #cf2d2d;
    border-radius: 15px;/* Cambia el color del borde para el estado inactivo */
   }
   .borde-amarillo {
-   border: 5px solid yellow;
+   border: 5px solid #ffcc00;
    border-radius: 15px;/* Define el color de borde amarillo */
   }
     .white{
@@ -568,5 +568,10 @@ export default {
     -ms-flex-negative: 1;
     flex-shrink: 1;
     padding: 0.75rem;
+}
+@media screen and (min-width: 1216px) {
+    .container:not(.is-max-desktop) {
+        max-width: 100vw;
+    }
 }
 </style>

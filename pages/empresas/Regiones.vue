@@ -329,7 +329,7 @@ export default {
   },
   head () {
     return {
-      title: 'Regiones - AgenteMonitor'
+      title: 'Regiones - Sistema de Monitoreo'
     }
   }
 }

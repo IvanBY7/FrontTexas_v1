@@ -16,7 +16,7 @@
                 <img
                   style="width: 35px; padding-top: 10px;"
                   src="@/assets/logo.png"
-                  alt="AgenteMonitor logo"
+                  alt="Sistema de Monitoreo logo"
                 />
               </span>
             </div>

@@ -101,7 +101,7 @@ export default {
 <style scoped>
 .chart-container {
   width: 100%;
-  height: 600px;
+  height: 450px;
   cursor: pointer;
 }
 @media screen and (max-width: 769px), print {

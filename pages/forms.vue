@@ -24,7 +24,7 @@ export default {
   },
   head () {
     return {
-      title: 'Cliente — AgenteMonitor'
+      title: 'Cliente — Sistema de Monitoreo'
     }
   }
 }

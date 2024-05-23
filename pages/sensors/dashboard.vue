@@ -29,7 +29,6 @@
                   <p class="leyenda">
                     Puerta
                   </p>
-                  <br>
                   <div :class="[getestado(sensor), 'pointer']">
                     <transition name="fade" mode="out-in">
                       <svg
@@ -166,19 +165,20 @@ export default {
     getestado (sensor) {
       // Estado abierto
       if (sensor.registro.valor === '1.0') {
-        const date = new Date(sensor.registro.fecha_registro)
+        // const date = new Date(sensor.registro.fecha_registro)
 
-        const now = new Date()
+        // const now = new Date()
 
-        const diffMs = now - date
+        // const diffMs = now - date
 
-        const diffMinutos = diffMs / 60000
+        // const diffMinutos = diffMs / 60000
 
-        if (diffMinutos > 5) {
-          return 'puerta-abierta-urgencia'
-        } else {
-          return 'puerta-abierta-advertencia'
-        }
+        // if (diffMinutos > 5) {
+        //   return 'puerta-abierta-urgencia'
+        // } else {
+        //   return 'puerta-abierta-advertencia'
+        // }
+        return 'puerta-abierta-urgencia'
       } else {
         return 'puerta-optima'
       }
@@ -228,7 +228,7 @@ export default {
   },
   head () {
     return {
-      title: 'Dashboard - AgenteMonitor'
+      title: 'Dashboard - Sistema de Monitoreo'
     }
   }
 }
@@ -236,10 +236,14 @@ export default {
 
 <style scoped>
 .fondoEstable{
-  background-color: #e9effa;
+  /* background-color: #e9effa; */
+  border: solid #b2caf5 15px;
+  box-shadow: 0px 2px 4px rgba(0, 153, 255, 0.521);
 }
 .fondoEmergencia{
-  background-color: #f8ebeb;
+  /* background-color: #fcecec; */
+  border: solid #f7c1c1 15px;
+  box-shadow: 0px 2px 4px rgba(255, 0, 0, 0.644);
 }
 .box {
     background-color: white;
@@ -306,8 +310,9 @@ export default {
   opacity: 0;
 }
 .leyenda {
-  font-size: 1rem;
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 .grafic {
   width: 50%;
@@ -341,13 +346,12 @@ export default {
 .card-header:last-child, .card-content:last-child, .card-footer:last-child {
     border-bottom-left-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
-    padding: 0;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
-    border: none;
     overflow: hidden;
 }
 .pointer{

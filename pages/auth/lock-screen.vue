@@ -60,7 +60,7 @@ export default {
   },
   head () {
     return {
-      title: 'Locked — AgenteMonitor'
+      title: 'Locked — Sistema de Monitoreo'
     }
   }
 }

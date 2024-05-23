@@ -13,14 +13,14 @@
         </div>
       </div>
     </div>
-    <div class="navbar-brand is-right">
+    <!-- <div class="navbar-brand is-right">
       <a class="navbar-item navbar-item-menu-toggle is-hidden-desktop" @click.prevent="updatesToggle">
         <b-icon icon="bell" custom-size="default" />
       </a>
       <a class="navbar-item navbar-item-menu-toggle is-hidden-desktop" @click.prevent="menuNavBarToggle">
         <b-icon :icon="menuNavBarToggleIcon" custom-size="default" />
       </a>
-    </div>
+    </div> -->
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive}">
       <div class="navbar-end">
         <nav-bar-menu class="has-divider has-user-avatar">

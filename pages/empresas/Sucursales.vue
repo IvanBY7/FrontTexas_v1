@@ -349,7 +349,7 @@ export default {
   },
   head () {
     return {
-      title: 'Sucursales - AgenteMonitor'
+      title: 'Sucursales - Sistema de Monitoreo'
     }
   }
 }

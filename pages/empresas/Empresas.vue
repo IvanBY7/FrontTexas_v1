@@ -292,7 +292,7 @@ export default {
   },
   head () {
     return {
-      title: 'Empresas - AgenteMonitor'
+      title: 'Empresas - Sistema de Monitoreo'
     }
   }
 }

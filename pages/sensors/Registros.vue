@@ -6,8 +6,8 @@
         :paginated="paginated"
         :per-page="perPage"
         :striped="true"
-        :hoverable="true"
         default-sort="created_at"
+        default-sort-direction="desc"
         :data="registros"
       >
         <b-table-column v-slot="props" label="ID Registro" field="IdRegistro" sortable>
@@ -17,9 +17,11 @@
           {{ props.row.fk_IdSensor.IdSensor }}
         </b-table-column>
         <b-table-column v-slot="props" label="Valor" field="Valor" sortable>
-          {{ getestado(props.row.Valor) }}
+          <td :style="{ color: customRowClass(props.row, 'created_at') }">
+            {{ getestado(props.row) }}
+          </td>
         </b-table-column>
-        <b-table-column v-slot="props" label="Fecha de Registro" field="created_at" sortable>
+        <b-table-column v-slot="props" label="Hora de Registro" field="created_at" sortable>
           {{ getfecha(props.row.created_at) }}
         </b-table-column>
 
@@ -64,7 +66,7 @@ export default {
       myDropzone: null,
       imagenSeleccionada: null, // Variable para almacenar la imagen seleccionada
       IdSensor: null,
-      perPage: 10,
+      perPage: 15,
       paginated: false,
       checkedRows: []
     }
@@ -78,11 +80,28 @@ export default {
     this.getRegistros()
   },
   methods: {
-    getestado (valor) {
-      if (valor === '1.0') {
-        return 'ABIERTO'
+    customRowClass (row, key) {
+      if (row.fk_IdSensor.fk_IdTipo.Indice_widget === '2') {
+        if (row.Valor === '1.0') {
+          return 'red'
+        } else {
+          return 'green'
+        }
+      } else if (parseFloat(row.Valor) < parseInt(row.fk_IdSensor.fk_IdTipo.Rango_min) || parseFloat(row.Valor) > parseInt(row.fk_IdSensor.fk_IdTipo.Rango_max)) {
+        return 'red'
       } else {
-        return 'CERRADO'
+        return 'green'
+      }
+    },
+    getestado (row) {
+      if (row.fk_IdSensor.fk_IdTipo.Indice_widget === '2') {
+        if (row.Valor === '1.0') {
+          return 'ABIERTO'
+        } else {
+          return 'CERRADO'
+        }
+      } else {
+        return row.Valor
       }
     },
     getfecha (fecha) {
@@ -194,7 +213,7 @@ export default {
   },
   head () {
     return {
-      title: 'Areas de Trabajo - AgenteMonitor'
+      title: 'Areas de Trabajo - Sistema de Monitoreo'
     }
   }
 }

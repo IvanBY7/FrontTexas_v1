@@ -129,7 +129,7 @@ export default {
   },
   head () {
     return {
-      title: 'Areas de Trabajo - AgenteMonitor'
+      title: 'Areas de Trabajo - Sistema de Monitoreo'
     }
   }
 }

@@ -59,7 +59,7 @@ export default {
   },
   head () {
     return {
-      title: 'Password Recovery — AgenteMonitor'
+      title: 'Password Recovery — Sistema de Monitoreo'
     }
   }
 }
