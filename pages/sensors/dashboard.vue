@@ -18,18 +18,19 @@
     </nav>
     <div class="columns is-multiline">
       <div v-for="(area, index) in lista_areas.areas" :key="index" class="column is-one-third">
-        <div class="box">
+        <div v-if="area.sensores" class="box">
           <h3 class="title is-5">
             {{ area.Nombre_zona }}
           </h3>
           <div class="distribuidor">
             <div v-for="(sensor, idsensor) in area.sensores" :key="idsensor" class="card empresa-card is-hoverable">
-              <div v-if="sensor.config.Indice_widget == '2'" class="card-content">
+              <div v-if="sensor.config.Indice_widget == '2'" :class="['card-content', getEstadoSensor(sensor)]" @click="handleChartClick(sensor)">
                 <div class="cont_grafica">
                   <p class="leyenda">
                     Puerta
                   </p>
-                  <div :class="[getestado(sensor)]">
+                  <br>
+                  <div :class="[getestado(sensor), 'pointer']">
                     <transition name="fade" mode="out-in">
                       <svg
                         v-if="sensor.registro.valor == '0.0'"
@@ -55,7 +56,8 @@
                   </div>
                 </div>
               </div>
-              <div v-else-if="sensor.config.Indice_widget == '3'" class="card-content">
+              <!-- Humedad -->
+              <div v-else-if="sensor.config.Indice_widget == '3'" :class="['card-content', getEstadoSensor(sensor)]">
                 <div class="cont_grafica">
                   <p class="leyenda">
                     Humedad
@@ -65,11 +67,13 @@
                       :data="getvalor(sensor.registro.valor)"
                       :maximo="getvalor(sensor.config.Rango_max)"
                       :minimo="getvalor(sensor.config.Rango_min)"
+                      @chart-click="handleChartClick(sensor)"
                     />
                   </div>
                 </div>
               </div>
-              <div v-else-if="sensor.config.Indice_widget == '1'" class="card-content">
+              <!-- Temperatura -->
+              <div v-else-if="sensor.config.Indice_widget == '1'" :class="['card-content', getEstadoSensor(sensor)]">
                 <div class="cont_grafica">
                   <p class="leyenda">
                     Temperatura
@@ -77,11 +81,12 @@
                   <div v-if="sensor.config.Rango_max" class="grafic">
                     <GaugeChart
                       :fontsize="9"
-                      :valorsize="30"
+                      :valorsize="22"
                       :valor="getvalor(sensor.registro.valor)"
                       :valormin="getvalor(sensor.config.Rango_min)"
                       :valormax="getvalor(sensor.config.Rango_max)"
                       :tipodato="sensor.config.Tipo_dato"
+                      @chart-click="handleChartClick(sensor)"
                     />
                   </div>
                 </div>
@@ -131,9 +136,35 @@ export default {
     this.clearAutoUpdate()
   },
   methods: {
+    handleChartClick (sensor) {
+      console.log(sensor)
+      const data = {
+        Fecha_registro: sensor.registro.fecha_registro,
+        sensor: sensor.id,
+        tipo: sensor.config,
+        valor: sensor.registro.valor,
+        valor_maximo: '#',
+        valor_minimo: '#'
+      }
+      localStorage.setItem('sensor', JSON.stringify(data))
+      this.$router.push('/sensors/graficas')
+      // Aquí puedes llamar cualquier método que necesites
+    },
+    getEstadoSensor (sensor) {
+      if (sensor.config.Indice_widget === '2') {
+        if (sensor.registro.valor === '1.0') {
+          return 'fondoEmergencia'
+        } else {
+          return 'fondoEstable'
+        }
+      } else if (sensor.registro.valor < sensor.config.Rango_min || sensor.registro.valor > sensor.config.Rango_max) {
+        return 'fondoEmergencia'
+      } else {
+        return 'fondoEstable'
+      }
+    },
     getestado (sensor) {
       // Estado abierto
-      console.log(sensor)
       if (sensor.registro.valor === '1.0') {
         const date = new Date(sensor.registro.fecha_registro)
 
@@ -143,7 +174,6 @@ export default {
 
         const diffMinutos = diffMs / 60000
 
-        console.log(diffMinutos)
         if (diffMinutos > 5) {
           return 'puerta-abierta-urgencia'
         } else {
@@ -160,7 +190,6 @@ export default {
       try {
         const response = await this.$store.dispatch('modules/companys/getCompany', this.userEmail)
         this.lista_empresas = response
-        console.log(this.lista_empresas)
       } catch {
         this.$buefy.snackbar.open({
           message: 'Error al cargar las empresas',
@@ -206,6 +235,12 @@ export default {
 </script>
 
 <style scoped>
+.fondoEstable{
+  background-color: #e9effa;
+}
+.fondoEmergencia{
+  background-color: #f8ebeb;
+}
 .box {
     background-color: white;
     border-radius: 6px;
@@ -227,6 +262,7 @@ export default {
   background-color: transparent;
   border-bottom: 1px solid #dbdbdb;
   display: flex;
+  z-index: 0;
 }
 .menu {
   display: flex;
@@ -238,7 +274,7 @@ export default {
 }
 .navbar-item.is-active {
   border-bottom: 4px solid #3273dc !important;
-  background-color: #f2f2f2;
+  background-color: #f2f2f2 !important;
 }
 .navbar-item:hover {
   background-color: #3273dc !important; /* Color de fondo al pasar el ratón por encima */
@@ -257,7 +293,7 @@ export default {
 }
 .cont_grafica {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
   width: 40rem;
@@ -311,9 +347,15 @@ export default {
     justify-content: center;
     align-items: center;
     height: 100%;
+    border: none;
+    overflow: hidden;
+}
+.pointer{
+  cursor: pointer;
 }
 .puerta-optima path{
   fill: #294D99;
+  cursor: pointer;
 }
 .puerta-optima{
   border: solid #294D99 8px;
@@ -323,6 +365,7 @@ export default {
 .puerta-abierta-advertencia path{
   fill: #ffcc00;
   margin: 10%;
+  cursor: pointer;
 }
 .puerta-abierta-advertencia{
   border: solid #ffcc00 8px;
@@ -331,6 +374,7 @@ export default {
 }
 .puerta-abierta-urgencia path{
   fill: #cf2d2d;
+  cursor: pointer;
 }
 .puerta-abierta-urgencia{
   border: solid #cf2d2d 8px;
@@ -341,6 +385,23 @@ export default {
     .column.is-one-third, .column.is-one-third-tablet {
         flex: none;
         width: 100%;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .navbar.is-transparent .menu .navbar .navbar-item:focus,
+    .navbar.is-transparent .menu .navbar .navbar-item:hover {
+      border-bottom: 4px solid #3273dc !important;
+      background-color: #3273dc !important;
+    }
+    .navbar.is-transparent .menu .navbar .navbar-item.is-active{
+      border-bottom: 4px solid #3273dc !important;
+      background-color: #f2f2f2 !important;
+    }
+    .navbar.is-transparent .menu .navbar .navbar-link:focus,
+    .navbar.is-transparent .menu .navbar .navbar-link:hover,
+    .navbar.is-transparent .menu .navbar .navbar-link.is-active {
+        background-color: #f0f0f0; /* El color que prefieras */
+        color: #000; /* El color de texto que prefieras */
     }
 }
 </style>

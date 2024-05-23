@@ -20,7 +20,6 @@ export const getRegistros = (id) => {
   })
 }
 export const getRegistrosbyrango = (data) => {
-  console.log(data.rango)
   return request({
     url: `/registers/get-register_short/${data.id}/${data.rango}/`,
     method: 'GET'

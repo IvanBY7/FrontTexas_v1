@@ -1,6 +1,6 @@
 <!-- components/GaugeChart.vue -->
 <template>
-  <div ref="chart" class="chart-contain" />
+  <div ref="chart" class="chart-contain" @click="handleClick" />
 </template>
 
 <script>
@@ -50,7 +50,9 @@ export default {
     }, 15000)
 
     this.resizeObserver = new ResizeObserver(() => {
-      this.myChart.resize()
+      if (this.myChart) {
+        this.myChart.resize()
+      }
     })
     this.resizeObserver.observe(this.$refs.chart)
   },
@@ -68,7 +70,6 @@ export default {
   },
   methods: {
     initChart () {
-      console.log(this.tipodato)
       this.myChart = echarts.init(this.$refs.chart)
       const option = {
         series: [
@@ -89,7 +90,7 @@ export default {
             pointer: {
               itemStyle: {
                 color: 'auto',
-                with: 10
+                width: 10
               }
             },
             axisTick: {
@@ -142,19 +143,22 @@ export default {
           }
         ]
       })
+    },
+    handleClick () {
+      this.$emit('chart-click')
     }
   }
 }
 </script>
 
 <style scoped>
-/* Estilos específicos del componente */
-.chart-contain{
+.chart-contain {
   width: 100%;
-  height: 300px;
+  height: 260px;
+  cursor: pointer; /* Cambia el cursor a pointer cuando el usuario está sobre el gráfico */
 }
 @media screen and (max-width: 850px), print {
-  .chart-contain{
+  .chart-contain {
     width: 100%;
     height: 250px;
   }

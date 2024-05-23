@@ -245,7 +245,7 @@ export default {
     },
     mostrarDetalles (sensor) {
       this.sensorseleccionado = sensor
-      localStorage.setItem('data', JSON.stringify(sensor))
+      localStorage.setItem('sensor', JSON.stringify(sensor))
       this.$router.push({ path: '/sensors/graficas' })
     },
     async createZona (form) {

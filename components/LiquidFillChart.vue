@@ -1,6 +1,6 @@
 <!-- components/LiquidFillChart.vue -->
 <template>
-  <div ref="chart" class="chart-container" />
+  <div ref="chart" class="chart-container" @click="handleClick" />
 </template>
 
 <script>
@@ -90,6 +90,9 @@ export default {
         }
       })
       this.resizeObserver.observe(this.$refs.chart)
+    },
+    handleClick () {
+      this.$emit('chart-click')
     }
   }
 }
@@ -99,6 +102,7 @@ export default {
 .chart-container {
   width: 100%;
   height: 600px;
+  cursor: pointer;
 }
 @media screen and (max-width: 769px), print {
   .chart-container{

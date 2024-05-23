@@ -14,13 +14,13 @@
           {{ props.row.IdRegistro }}
         </b-table-column>
         <b-table-column v-slot="props" label="Sensor" field="fk_IdSensor" sortable>
-          {{ props.row.fk_IdSensor }}
+          {{ props.row.fk_IdSensor.IdSensor }}
         </b-table-column>
         <b-table-column v-slot="props" label="Valor" field="Valor" sortable>
-          {{ props.row.Valor }}
+          {{ getestado(props.row.Valor) }}
         </b-table-column>
         <b-table-column v-slot="props" label="Fecha de Registro" field="created_at" sortable>
-          {{ formateofecha(props.row.created_at) }}
+          {{ getfecha(props.row.created_at) }}
         </b-table-column>
 
         <section slot="empty" class="section">
@@ -55,6 +55,7 @@ export default {
   },
   data () {
     return {
+      idsensor: null,
       horaActual: '',
       registros: [],
       isLoading: false,
@@ -71,21 +72,41 @@ export default {
   computed: {
 
   },
-
-  mounted () {
-    this.DatosRegistros()
+  created () {
+    this.idsensor = JSON.parse(localStorage.getItem('idsensor'))
+    console.log(this.idsensor)
     this.getRegistros()
   },
   methods: {
+    getestado (valor) {
+      if (valor === '1.0') {
+        return 'ABIERTO'
+      } else {
+        return 'CERRADO'
+      }
+    },
+    getfecha (fecha) {
+      const opciones = {
+        hour: '2-digit',
+        minute: '2-digit',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        timeZone: 'America/Mexico_City',
+        hour12: false // Esto asegura que la hora se muestre en formato de 24 horas
+      }
+
+      const fechaFormateada = new Date(fecha).toLocaleString('es-MX', opciones)
+      return fechaFormateada
+    },
     formateofecha (fechaHora) {
       const fechaFormateada = new Date(fechaHora).toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })
       return fechaFormateada
     },
     async getRegistros () {
-      const id = this.DatosRegistros()
       this.isLoading = true
       try {
-        const response = await this.$store.dispatch('modules/sensors/getRegistersbySensor', id)
+        const response = await this.$store.dispatch('modules/sensors/getRegistersbySensor', this.idsensor)
         this.registros = response.Registros.reverse()
         console.log(this.registros)
         this.isLoading = false
