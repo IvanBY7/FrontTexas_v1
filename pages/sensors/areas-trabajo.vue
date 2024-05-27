@@ -3,7 +3,7 @@
     <div class="contenido">
       <div class="columns is-multiline">
         <div v-for="(area, index) in lista_areas" :key="index" class="column is-one-quarter">
-          <div class="card empresa-card is-hoverable">
+          <div v-if="area.sensores" class="card empresa-card is-hoverable">
             <div class="card-content">
               <strong class="empresa-name">
                 <p>{{ area.Nombre_zona }}</p>
@@ -36,9 +36,9 @@
                 <b-dropdown-item v-if="(checkrol(1))" @click="eliminar(region)">
                   Eliminar
                 </b-dropdown-item>
-                <b-dropdown-item>
+                <!-- <b-dropdown-item>
                   Configurar
-                </b-dropdown-item>
+                </b-dropdown-item> -->
                 <!-- <b-dropdown-item @click="info(sensor)">
                   Obtener info
                 </b-dropdown-item> -->
@@ -150,7 +150,7 @@ export default {
     this.getArea()
     this.intervalId = setInterval(() => {
       this.getArea()
-    }, 15000)
+    }, 5000)
   },
   methods: {
     info (sensor) {

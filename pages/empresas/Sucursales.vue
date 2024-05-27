@@ -18,9 +18,9 @@
                 <b-dropdown-item v-if="(checkrol(1))" @click="eliminar(sucursal)">
                   Eliminar
                 </b-dropdown-item>
-                <b-dropdown-item>
+                <!-- <b-dropdown-item>
                   Configurar
-                </b-dropdown-item>
+                </b-dropdown-item> -->
                 <b-dropdown-item @click="info(sucursal)">
                   Obtener info
                 </b-dropdown-item>

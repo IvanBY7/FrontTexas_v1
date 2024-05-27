@@ -112,7 +112,7 @@ export default {
   },
   mixins: [redirect],
   fetch () {
-    this.$store.commit('setTitleStack', ['Dashboard'])
+    this.$store.commit('setTitleStack', ['¡Bienvenido al Sistema de Monitoreo de Sensores!'])
   },
   data () {
     return {
@@ -165,19 +165,6 @@ export default {
     getestado (sensor) {
       // Estado abierto
       if (sensor.registro.valor === '1.0') {
-        // const date = new Date(sensor.registro.fecha_registro)
-
-        // const now = new Date()
-
-        // const diffMs = now - date
-
-        // const diffMinutos = diffMs / 60000
-
-        // if (diffMinutos > 5) {
-        //   return 'puerta-abierta-urgencia'
-        // } else {
-        //   return 'puerta-abierta-advertencia'
-        // }
         return 'puerta-abierta-urgencia'
       } else {
         return 'puerta-optima'
@@ -190,6 +177,9 @@ export default {
       try {
         const response = await this.$store.dispatch('modules/companys/getCompany', this.userEmail)
         this.lista_empresas = response
+        if (this.lista_empresas.length === 1) {
+          this.selectEmpresa(this.lista_empresas[0])
+        }
       } catch {
         this.$buefy.snackbar.open({
           message: 'Error al cargar las empresas',
@@ -204,6 +194,7 @@ export default {
       this.startAutoUpdate(empresa)
     },
     async updateEmpresaData (empresa) {
+      console.log('ejecutando')
       try {
         const response = await this.$store.dispatch('modules/companys/getSensorbyCompany', empresa.IdEmpresa)
         this.lista_areas = response

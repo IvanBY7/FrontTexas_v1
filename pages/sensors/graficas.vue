@@ -15,7 +15,7 @@
         <div class="column2 has-text-centered is-multiline">
           <div class="cont_grafica">
             <p class="leyenda">
-              Humedad
+              Humedad minima {{ rangoMin }}%, maxima {{ rangoMax }}%
             </p>
             <div v-if="valordona" class="grafic">
               <LiquidFillChart
@@ -309,8 +309,17 @@ export default {
   },
   created () {
     this.sensor = JSON.parse(localStorage.getItem('sensor'))
-    console.log(this.sensor)
+  },
+  beforeDestroy () {
+    if (this.intervalId) {
+      clearInterval(this.intervalId)
+    }
+  },
+  mounted () {
     this.getregisterbyrango()
+    this.intervalId = setInterval(() => {
+      this.getregisterbyrango()
+    }, 5000)
   },
   methods: {
     verhistorico () {

@@ -102,47 +102,47 @@ export default {
             //   state: '1white',
             //   icon: 'archive'
             // }
-          ],
-          'ADMINISTRACIÓN',
-          [
-            {
-              to: '/roles',
-              label: 'Roles',
-              state: '1warning',
-              icon: 'cog'
-            }
-            // {
-            //   to: '/roles',
-            //   label: 'Roles',
-            //   state: '1warning',
-            //   icon: 'lock'
-            // },
-            // {
-            //   to: '/reporting',
-            //   label: 'Reportes',
-            //   state: '1primary',
-            //   icon: 'file-download-alt'
-            // },
-            // {
-            //   label: 'Mensajería',
-            //   state: '1success',
-            //   icon: 'envelopes',
-            //   menu: [
-            //     {
-            //       to: '/templates',
-            //       label: 'Plantillas',
-            //       state: '1dark',
-            //       icon: 'fast-mail-alt'
-            //     },
-            //     {
-            //       to: '/messages',
-            //       label: 'Envíos',
-            //       state: '1dark',
-            //       icon: 'envelope-send'
-            //     }
-            //   ]
-            // }
           ]
+          // 'ADMINISTRACIÓN',
+          // [
+          // {
+          //   to: '/roles',
+          //   label: 'Roles',
+          //   state: '1warning',
+          //   icon: 'cog'
+          // }
+          // {
+          //   to: '/roles',
+          //   label: 'Roles',
+          //   state: '1warning',
+          //   icon: 'lock'
+          // },
+          // {
+          //   to: '/reporting',
+          //   label: 'Reportes',
+          //   state: '1primary',
+          //   icon: 'file-download-alt'
+          // },
+          // {
+          //   label: 'Mensajería',
+          //   state: '1success',
+          //   icon: 'envelopes',
+          //   menu: [
+          //     {
+          //       to: '/templates',
+          //       label: 'Plantillas',
+          //       state: '1dark',
+          //       icon: 'fast-mail-alt'
+          //     },
+          //     {
+          //       to: '/messages',
+          //       label: 'Envíos',
+          //       state: '1dark',
+          //       icon: 'envelope-send'
+          //     }
+          //   ]
+          // }
+          // ]
         ]
       }
     },

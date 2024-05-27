@@ -63,14 +63,14 @@
           </div>
 
           <div slot="dropdown" class="navbar-dropdown">
-            <nuxt-link
+            <!-- <nuxt-link
               to="/profile"
               class="navbar-item"
               exact-active-class="is-active"
             >
               <b-icon icon="account" custom-size="default" />
               <span>Mi Cuenta</span>
-            </nuxt-link>
+            </nuxt-link> -->
             <hr class="navbar-divider">
             <a class="navbar-item has-text-danger" @click="logout">
               <b-icon icon="logout" custom-size="default" />

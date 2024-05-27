@@ -18,9 +18,9 @@
                 <b-dropdown-item v-if="(checkrol(1))" @click="eliminar(region)">
                   Eliminar
                 </b-dropdown-item>
-                <b-dropdown-item>
+                <!-- <b-dropdown-item>
                   Configurar
-                </b-dropdown-item>
+                </b-dropdown-item> -->
                 <b-dropdown-item @click="info(region)">
                   Obtener info
                 </b-dropdown-item>

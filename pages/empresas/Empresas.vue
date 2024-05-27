@@ -18,10 +18,12 @@
                 <b-dropdown-item
                   v-if="(checkrol(1))"
                   @click="eliminar(empresa)"
-                />
-                <b-dropdown-item>
-                  Configurar
+                >
+                  Eliminar
                 </b-dropdown-item>
+                <!-- <b-dropdown-item>
+                  Configurar
+                </b-dropdown-item> -->
                 <b-dropdown-item @click="info(empresa)">
                   Obtener info
                 </b-dropdown-item>
@@ -212,10 +214,17 @@ export default {
       }
     },
     info (empresa) {
+      const nombre = empresa.Nombre_Empresa
+      let clave = ''
+      if (this.checkrol(1)) {
+        clave = empresa.ClaveEmpresa
+      } else {
+        clave = '****************'
+      }
       this.$buefy.dialog.alert({
         title: 'Empresa creada',
-        message: `<b>Nombre de empresa: </b>${empresa.Nombre_Empresa}<br>
-                      <b>Clave de empresa: </b> ${empresa.ClaveEmpresa} <br>
+        message: `<b>Nombre de empresa: </b>${nombre}<br>
+                      <b>Clave de empresa: </b> ${clave} <br>
                       Comparte está clave cons tus empleados para poder registrarse`,
         confirmText: 'Aceptar'
       })

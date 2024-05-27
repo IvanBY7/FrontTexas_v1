@@ -41,14 +41,14 @@
                 password-reveal
                 :normal="true"
               />
-              <small class="has-text-dark">
+              <!-- <small class="has-text-dark">
                 ¿Has olvidado tu contraseña?&nbsp;·&nbsp;
                 <strong>
                   <nuxt-link class="link" to="/auth/password-recovery">
                     Recuperala
                   </nuxt-link>
                 </strong>
-              </small>
+              </small> -->
               <hr>
               <b-field>
                 <b-button
