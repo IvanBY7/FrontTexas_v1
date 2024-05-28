@@ -205,6 +205,7 @@ html.has-aside-right {
   }
   html {
     background-color: #e0e0e0;
+    font-family: Arial, Helvetica, sans-serif;
     &.has-aside-mobile-expanded {
       #app, nav.navbar {
         margin-left: $aside-mobile-width;
@@ -235,6 +236,7 @@ html.has-aside-right {
 
 @include desktop {
   html {
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #e0e0e0;
     &.has-aside-left, &.has-aside-right {
       nav.navbar, body {
@@ -347,6 +349,7 @@ html.has-aside-right {
 
 @include widescreen {
   html {
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #e0e0e0;
     &.has-aside-right {
       body {

@@ -20,7 +20,7 @@
       <div v-for="(area, index) in lista_areas.areas" :key="index" class="column is-one-third">
         <div v-if="area.sensores" class="box">
           <h3 class="title is-5">
-            {{ area.Nombre_zona }}
+            {{ area.Nombre_zona }} - {{ area.Sucursal.Nombre_sucursal }}
           </h3>
           <div class="distribuidor">
             <div v-for="(sensor, idsensor) in area.sensores" :key="idsensor" class="card empresa-card is-hoverable">
@@ -194,10 +194,10 @@ export default {
       this.startAutoUpdate(empresa)
     },
     async updateEmpresaData (empresa) {
-      console.log('ejecutando')
       try {
         const response = await this.$store.dispatch('modules/companys/getSensorbyCompany', empresa.IdEmpresa)
         this.lista_areas = response
+        console.log(this.lista_areas)
       } catch {
         this.$buefy.snackbar.open({
           message: 'Error al cargar las regiones',
