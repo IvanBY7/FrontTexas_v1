@@ -15,7 +15,7 @@
         <div class="column2 has-text-centered is-multiline">
           <div class="cont_grafica">
             <p class="leyenda">
-              Humedad minima {{ rangoMin }}%, maxima {{ rangoMax }}%
+              Humedad mínima {{ rangoMin }}%, máxima {{ rangoMax }}%
             </p>
             <div v-if="valordona" class="grafic">
               <LiquidFillChart
@@ -96,7 +96,7 @@
           <!-- Gráfica de Dona -->
           <div class="cont_grafica">
             <p class="leyenda">
-              Temperatura min {{ rangoMin }}°C, max {{ rangoMax }}°C
+              Temperatura mínima {{ rangoMin }}{{ tipo_dato }}, máxima {{ rangoMax }}{{ tipo_dato }}
             </p>
             <div
               v-if="rangoMax"
@@ -447,7 +447,7 @@ export default {
       return fechaFormateada
     },
     updateTitleStack () {
-      this.$store.commit('setTitleStack', ['Información del sensor del dia ' + this.getfecha(this.lista_registros[0].created_at)])
+      this.$store.commit('setTitleStack', ['Información del sensor del día ' + this.getfecha(this.lista_registros[0].created_at)])
     },
     iniciagraficalineal (registroSensor) {
       if (!registroSensor || !registroSensor.length) {

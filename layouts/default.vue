@@ -112,12 +112,12 @@ export default {
               icon: 'inbox'
             },
             {
-              label: 'Recursos',
+              label: 'Configuraciones',
               state: '1warning',
               icon: 'cog',
               menu: [
                 {
-                  to: '/',
+                  to: '/config/employees',
                   label: 'Empleados',
                   state: '1warning',
                   icon: 'user-md'
