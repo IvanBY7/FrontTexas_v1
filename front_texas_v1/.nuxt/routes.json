@@ -1,0 +1,318 @@
+[
+  {
+    "name": "forms",
+    "path": "/forms",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\forms.vue",
+    "chunkName": "pages/forms",
+    "meta": {
+      "name": "Cliente",
+      "titleStack": [
+        "Cliente"
+      ]
+    },
+    "_name": "_9f668d00"
+  },
+  {
+    "name": "full-page",
+    "path": "/full-page",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\full-page.vue",
+    "chunkName": "pages/full-page",
+    "children": [
+      {
+        "name": "full-page-error",
+        "path": "error",
+        "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\full-page\\\\error.vue",
+        "chunkName": "pages/full-page/error",
+        "meta": {
+          "name": "Error",
+          "props": {
+            "isInCard": {
+              "default": true
+            }
+          }
+        },
+        "_name": "_5c271fcc"
+      },
+      {
+        "name": "full-page-error-copy",
+        "path": "error-copy",
+        "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\full-page\\\\error-copy.vue",
+        "chunkName": "pages/full-page/error-copy",
+        "meta": {
+          "name": "ErrorCopy",
+          "props": {
+            "isInCard": {
+              "default": false
+            }
+          }
+        },
+        "_name": "_5edc8678"
+      },
+      {
+        "name": "full-page-lock-screen",
+        "path": "lock-screen",
+        "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\full-page\\\\lock-screen.vue",
+        "chunkName": "pages/full-page/lock-screen",
+        "meta": {
+          "name": "LockScreen"
+        },
+        "_name": "_9dca5240"
+      },
+      {
+        "name": "full-page-login",
+        "path": "login",
+        "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\full-page\\\\login.vue",
+        "chunkName": "pages/full-page/login",
+        "meta": {
+          "name": "Login"
+        },
+        "_name": "_57cdf4fb"
+      },
+      {
+        "name": "full-page-password-recovery",
+        "path": "password-recovery",
+        "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\full-page\\\\password-recovery.vue",
+        "chunkName": "pages/full-page/password-recovery",
+        "meta": {
+          "name": "Login"
+        },
+        "_name": "_bc9a33ce"
+      }
+    ],
+    "meta": {
+      "name": "FullPage"
+    },
+    "_name": "_6b7f6cde"
+  },
+  {
+    "name": "profile",
+    "path": "/profile",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\profile.vue",
+    "chunkName": "pages/profile",
+    "meta": {
+      "name": "Profile"
+    },
+    "_name": "_4198bfba"
+  },
+  {
+    "name": "tables",
+    "path": "/tables",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\tables.vue",
+    "chunkName": "pages/tables",
+    "meta": {
+      "name": "Tables"
+    },
+    "_name": "_5b415938"
+  },
+  {
+    "name": "auth-error-copy",
+    "path": "/auth/error-copy",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\auth\\\\error-copy.vue",
+    "chunkName": "pages/auth/error-copy",
+    "meta": {
+      "name": "ErrorCopy",
+      "props": {
+        "isInCard": {
+          "default": false
+        }
+      }
+    },
+    "_name": "_b22009fe"
+  },
+  {
+    "name": "auth-lock-screen",
+    "path": "/auth/lock-screen",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\auth\\\\lock-screen.vue",
+    "chunkName": "pages/auth/lock-screen",
+    "meta": {
+      "name": "LockScreen"
+    },
+    "_name": "_6b75f377"
+  },
+  {
+    "name": "auth-login",
+    "path": "/auth/login",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\auth\\\\login.vue",
+    "chunkName": "pages/auth/login",
+    "meta": {
+      "name": "Login",
+      "layout": "full-page"
+    },
+    "_name": "_6cf7e25c"
+  },
+  {
+    "name": "auth-password-recovery",
+    "path": "/auth/password-recovery",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\auth\\\\password-recovery.vue",
+    "chunkName": "pages/auth/password-recovery",
+    "meta": {
+      "name": "PasswordRecovery"
+    },
+    "_name": "_4e15f570"
+  },
+  {
+    "name": "auth-register",
+    "path": "/auth/register",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\auth\\\\register.vue",
+    "chunkName": "pages/auth/register",
+    "meta": {
+      "name": "Login",
+      "layout": "full-page"
+    },
+    "_name": "_5d09c0ca"
+  },
+  {
+    "name": "auth-success",
+    "path": "/auth/success",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\auth\\\\success.vue",
+    "chunkName": "pages/auth/success",
+    "meta": {
+      "name": "Exito",
+      "layout": "full-page",
+      "props": {
+        "isInCard": {
+          "default": true
+        }
+      }
+    },
+    "_name": "_1db8722c"
+  },
+  {
+    "name": "client-form",
+    "path": "/client/form",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\client\\\\form.vue",
+    "chunkName": "pages/client/form",
+    "meta": {
+      "name": "ClientDetail",
+      "titleStack": [
+        "Clientes",
+        "Detalle"
+      ]
+    },
+    "_name": "_c96862e4"
+  },
+  {
+    "name": "config-employees",
+    "path": "/config/employees",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\config\\\\employees.vue",
+    "chunkName": "pages/config/employees",
+    "meta": {},
+    "_name": "_2558e954"
+  },
+  {
+    "name": "empresas-Empresas",
+    "path": "/empresas/Empresas",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\empresas\\\\Empresas.vue",
+    "chunkName": "pages/empresas/Empresas",
+    "meta": {
+      "name": "Empresas"
+    },
+    "_name": "_4fa14033"
+  },
+  {
+    "name": "empresas-Regiones",
+    "path": "/empresas/Regiones",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\empresas\\\\Regiones.vue",
+    "chunkName": "pages/empresas/Regiones",
+    "meta": {
+      "name": "Regiones"
+    },
+    "_name": "_4ca429cb"
+  },
+  {
+    "name": "empresas-Sucursales",
+    "path": "/empresas/Sucursales",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\empresas\\\\Sucursales.vue",
+    "chunkName": "pages/empresas/Sucursales",
+    "meta": {
+      "name": "Sucursales"
+    },
+    "_name": "_68335817"
+  },
+  {
+    "name": "recursos-resources",
+    "path": "/recursos/resources",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\recursos\\\\resources.vue",
+    "chunkName": "pages/recursos/resources",
+    "meta": {},
+    "_name": "_3392bea8"
+  },
+  {
+    "name": "sensors-areas-trabajo",
+    "path": "/sensors/areas-trabajo",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\sensors\\\\areas-trabajo.vue",
+    "chunkName": "pages/sensors/areas-trabajo",
+    "meta": {
+      "name": "Sucursales"
+    },
+    "_name": "_22fd9bf4"
+  },
+  {
+    "name": "sensors-dashboard",
+    "path": "/sensors/dashboard",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\sensors\\\\dashboard.vue",
+    "chunkName": "pages/sensors/dashboard",
+    "meta": {
+      "name": "Incidencias"
+    },
+    "_name": "_7f81c60c"
+  },
+  {
+    "name": "sensors-graficas",
+    "path": "/sensors/graficas",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\sensors\\\\graficas.vue",
+    "chunkName": "pages/sensors/graficas",
+    "meta": {
+      "name": "Graficass"
+    },
+    "_name": "_7ab68626"
+  },
+  {
+    "name": "sensors-graficas-puerta",
+    "path": "/sensors/graficas-puerta",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\sensors\\\\graficas-puerta.vue",
+    "chunkName": "pages/sensors/graficas-puerta",
+    "meta": {},
+    "_name": "_fe87a1d4"
+  },
+  {
+    "name": "sensors-Registros",
+    "path": "/sensors/Registros",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\sensors\\\\Registros.vue",
+    "chunkName": "pages/sensors/Registros",
+    "meta": {
+      "name": "Historico"
+    },
+    "_name": "_725052e6"
+  },
+  {
+    "name": "sensors-Sensores",
+    "path": "/sensors/Sensores",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\sensors\\\\Sensores.vue",
+    "chunkName": "pages/sensors/Sensores",
+    "meta": {
+      "name": "Sensores"
+    },
+    "_name": "_5ff65ddc"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "meta": {
+      "name": "Home"
+    },
+    "_name": "_13414ca3"
+  },
+  {
+    "name": "client-id",
+    "path": "/client/:id?",
+    "component": "C:\\\\Users\\\\ivany\\\\Desktop\\\\plantillas\\\\Gestion_Sensores\\\\front_texas_v1\\\\pages\\\\client\\\\_id.vue",
+    "chunkName": "pages/client/_id",
+    "meta": {
+      "name": "ClientDetail"
+    },
+    "_name": "_1a189040"
+  }
+]

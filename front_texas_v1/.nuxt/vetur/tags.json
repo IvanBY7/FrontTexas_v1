@@ -1,0 +1,161 @@
+{
+  "AsideMenu": {
+    "description": "Auto imported from components/base/AsideMenu.vue"
+  },
+  "AsideMenuItem": {
+    "description": "Auto imported from components/base/AsideMenuItem.vue"
+  },
+  "AsideMenuList": {
+    "description": "Auto imported from components/base/AsideMenuList.vue"
+  },
+  "AsideRight": {
+    "description": "Auto imported from components/base/AsideRight.vue"
+  },
+  "AsideTools": {
+    "description": "Auto imported from components/base/AsideTools.vue"
+  },
+  "AsideUpdates": {
+    "description": "Auto imported from components/base/AsideUpdates.vue"
+  },
+  "AsideUpdatesItem": {
+    "description": "Auto imported from components/base/AsideUpdatesItem.vue"
+  },
+  "FooterBar": {
+    "description": "Auto imported from components/base/FooterBar.vue"
+  },
+  "HeroBar": {
+    "description": "Auto imported from components/base/HeroBar.vue"
+  },
+  "HeroBarMain": {
+    "description": "Auto imported from components/base/HeroBarMain.vue"
+  },
+  "NavBar": {
+    "description": "Auto imported from components/base/NavBar.vue"
+  },
+  "NavBarMenu": {
+    "description": "Auto imported from components/base/NavBarMenu.vue"
+  },
+  "Overlay": {
+    "description": "Auto imported from components/base/Overlay.vue"
+  },
+  "Tiles": {
+    "description": "Auto imported from components/base/Tiles.vue"
+  },
+  "TitleBar": {
+    "description": "Auto imported from components/base/TitleBar.vue"
+  },
+  "BCheckboxesWithValidation": {
+    "description": "Auto imported from components/forms/BCheckboxesWithValidation.vue"
+  },
+  "BInputWithValidation": {
+    "description": "Auto imported from components/forms/BInputWithValidation.vue"
+  },
+  "BSelectWithValidation": {
+    "description": "Auto imported from components/forms/BSelectWithValidation.vue"
+  },
+  "ButtonGroup": {
+    "description": "Auto imported from components/forms/ButtonGroup.vue"
+  },
+  "CheckboxPicker": {
+    "description": "Auto imported from components/forms/CheckboxPicker.vue"
+  },
+  "FilePicker": {
+    "description": "Auto imported from components/forms/FilePicker.vue"
+  },
+  "FilePickerDragAndDrop": {
+    "description": "Auto imported from components/forms/FilePickerDragAndDrop.vue"
+  },
+  "PasswordUpdateForm": {
+    "description": "Auto imported from components/forms/PasswordUpdateForm.vue"
+  },
+  "ProfileUpdateForm": {
+    "description": "Auto imported from components/forms/ProfileUpdateForm.vue"
+  },
+  "RadioPicker": {
+    "description": "Auto imported from components/forms/RadioPicker.vue"
+  },
+  "SearchPerson": {
+    "description": "Auto imported from components/forms/SearchPerson.vue"
+  },
+  "CardComponent": {
+    "description": "Auto imported from components/cards/CardComponent.vue"
+  },
+  "CardScrollable": {
+    "description": "Auto imported from components/cards/CardScrollable.vue"
+  },
+  "CardToolbar": {
+    "description": "Auto imported from components/cards/CardToolbar.vue"
+  },
+  "CardWidget": {
+    "description": "Auto imported from components/cards/CardWidget.vue"
+  },
+  "GrowingNumber": {
+    "description": "Auto imported from components/cards/GrowingNumber.vue"
+  },
+  "RefreshButton": {
+    "description": "Auto imported from components/cards/RefreshButton.vue"
+  },
+  "BaseTable": {
+    "description": "Auto imported from components/BaseTable.vue"
+  },
+  "ClientsTableSample": {
+    "description": "Auto imported from components/ClientsTableSample.vue"
+  },
+  "ErrorContent": {
+    "description": "Auto imported from components/ErrorContent.vue"
+  },
+  "ExcelModal": {
+    "description": "Auto imported from components/ExcelModal.vue"
+  },
+  "FloatActionButton": {
+    "description": "Auto imported from components/FloatActionButton.vue"
+  },
+  "GaugeCharts": {
+    "description": "Auto imported from components/GaugeCharts.vue"
+  },
+  "LiquidFillChart": {
+    "description": "Auto imported from components/LiquidFillChart.vue"
+  },
+  "MediaItem": {
+    "description": "Auto imported from components/MediaItem.vue"
+  },
+  "ModalBox": {
+    "description": "Auto imported from components/ModalBox.vue"
+  },
+  "Notification": {
+    "description": "Auto imported from components/Notification.vue"
+  },
+  "Pagination": {
+    "description": "Auto imported from components/Pagination.vue"
+  },
+  "PersonInitials": {
+    "description": "Auto imported from components/PersonInitials.vue"
+  },
+  "SuccesContent": {
+    "description": "Auto imported from components/SuccesContent.vue"
+  },
+  "UserAvatar": {
+    "description": "Auto imported from components/UserAvatar.vue"
+  },
+  "ChartsChartConfig": {
+    "description": "Auto imported from components/Charts/chart.config.js"
+  },
+  "ChartsDoughnutChart": {
+    "description": "Auto imported from components/Charts/DoughnutChart.js"
+  },
+  "ChartsLineChart": {
+    "description": "Auto imported from components/Charts/LineChart.js"
+  },
+  "UsersUserActions": {
+    "description": "Auto imported from components/users/UserActions.vue"
+  },
+  "UsersUserCard": {
+    "description": "Auto imported from components/users/UserCard.vue"
+  },
+  "UsersUserForm": {
+    "description": "Auto imported from components/users/UserForm.vue"
+  },
+  "UsersUserModal": {
+    "description": "Auto imported from components/users/UserModal.vue"
+  }
+}
