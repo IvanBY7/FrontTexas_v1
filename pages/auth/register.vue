@@ -6,11 +6,11 @@
           <div class="columns mt-1">
             <div class="column left has-text-centered is-hidden-mobile">
               <h1 class="title is-3">
-                Agente Monitor
+                Gestión de Sensores
               </h1>
-              <h2 class="subtitle colored is-5">
-                Gestión para aseguradoras.
-              </h2>
+              <!-- <h2 class="subtitle colored is-5">
+                Gestión de sensores.
+              </h2> -->
               <br>
               <img
                 class="logo"
@@ -20,6 +20,16 @@
                 alt="Logo"
               >
               <br><br>
+            </div>
+            <div class="column right">
+              <div class="has-text-centered mb-5">
+                <h1 class="title is-4">
+                  Regístrate ahora!
+                </h1>
+                <!-- <p class="description">
+                  Al crear una cuenta aceptas nuestros términos y condiciones.
+                </p> -->
+              </div>
               <b-field>
                 <b-switch
                   v-model="is_ceo"
@@ -29,25 +39,14 @@
                   Soy dueño de una empresa
                 </b-switch>
               </b-field>
-            </div>
-            <div class="column right">
-              <div class="has-text-centered mb-5">
-                <h1 class="title is-4">
-                  Regístrate ahora!
-                </h1>
-                <p class="description">
-                  Al crear una cuenta aceptas nuestros términos y condiciones.
-                </p>
-              </div>
-
               <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
                 <form class="has-text-left">
                   <BInputWithValidation
                     v-model="form.username"
                     :normal="true"
                     margin="mb-4"
-                    label-position="on-border"
-                    label="Nombre de usuario"
+                    label-position=""
+                    label="Nombre de usuario:"
                     rules="required"
                     type="text"
                     name="nombre de usuario"
@@ -57,8 +56,8 @@
                     v-model="form.first_name"
                     :normal="true"
                     margin="mb-4"
-                    label-position="on-border"
-                    label="Nombre(s)"
+                    label-position=""
+                    label="Nombre(s):"
                     rules="required"
                     type="text"
                     name="first_name"
@@ -68,8 +67,8 @@
                     v-model="form.last_name"
                     :normal="true"
                     margin="mb-4"
-                    label-position="on-border"
-                    label="Apellido(s)"
+                    label-position=""
+                    label="Apellido(s):"
                     rules="required"
                     type="text"
                     name="lastname"
@@ -79,8 +78,8 @@
                     v-model="form.email"
                     :normal="true"
                     margin="mb-4"
-                    label-position="on-border"
-                    label="Email"
+                    label-position=""
+                    label="Email:"
                     rules="required|email"
                     type="email"
                     name="email"
@@ -91,8 +90,8 @@
                     v-model="form.company"
                     :normal="true"
                     margin="mb-4"
-                    label-position="on-border"
-                    label="Clave de empresa"
+                    label-position=""
+                    label="Clave de empresa:"
                     rules="required"
                     type="text"
                     name="clave"
@@ -102,8 +101,8 @@
                     v-model="form.password"
                     :normal="true"
                     margin="mb-4"
-                    label-position="on-border"
-                    label="Contraseña"
+                    label-position=""
+                    label="Contraseña:"
                     rules="required|password"
                     data-vv-as="field"
                     name="password"
@@ -115,8 +114,8 @@
                     v-model="form.password_confirm"
                     :normal="true"
                     margin="mb-4"
-                    label-position="on-border"
-                    label="Confirmar contraseña"
+                    label-position=""
+                    label="Confirmar contraseña:"
                     rules="required|confirmed:password"
                     name="Password"
                     type="password"
@@ -191,28 +190,59 @@ export default {
       this.isLoading = true
       console.log(this.form)
       if (this.is_ceo) {
-        this.form.groups.push(1)
-      } else {
-        this.form.groups.push(2)
-      }
-      try {
-        await this.$store.dispatch('modules/users/createOrUpdate', this.form)
-        this.$buefy.dialog.alert({
-          title: 'Cuenta registrada',
-          message: `Tu cuenta ha sido registrada<br>
-                    revisa tu correo para activar tu cuenta<br>`,
-          confirmText: 'Aceptar',
-          onConfirm: () => {
-            window.location.reload()
+        this.$buefy.dialog.confirm({
+          title: 'Creando usuario',
+          message: 'Estás creando un usuario como dueño de una empresa, ¿Estás seguro?',
+          type: 'is-warning',
+          hasIcon: true,
+          iconPack: 'fas',
+          icon: 'exclamation-circle',
+          cancelText: 'Cancelar',
+          confirmText: 'Crear',
+          canCancel: true,
+          onConfirm: async () => {
+            this.form.groups.push(1)
+            try {
+              await this.$store.dispatch('modules/users/createOrUpdate', this.form)
+              this.$buefy.dialog.alert({
+                title: 'Cuenta registrada',
+                message: `Tu cuenta ha sido registrada<br>
+                          revisa tu correo para activar tu cuenta<br>`,
+                confirmText: 'Aceptar',
+                onConfirm: () => {
+                  window.location.reload()
+                }
+              })
+            } catch (error) {
+              this.$buefy.snackbar.open({
+                message: 'Eror al registrarse',
+                type: 'is-danger'
+              })
+            }
+          },
+          oncancel: () => {
+            this.isLoading = false
           }
         })
-      } catch (error) {
-        this.$buefy.snackbar.open({
-          message: 'Eror al registrarse',
-          type: 'is-danger'
-        })
-      } finally {
-        this.isLoading = false
+      } else {
+        this.form.groups.push(2)
+        try {
+          await this.$store.dispatch('modules/users/createOrUpdate', this.form)
+          this.$buefy.dialog.alert({
+            title: 'Cuenta registrada',
+            message: `Tu cuenta ha sido registrada<br>
+                          revisa tu correo para activar tu cuenta<br>`,
+            confirmText: 'Aceptar',
+            onConfirm: () => {
+              window.location.reload()
+            }
+          })
+        } catch (error) {
+          this.$buefy.snackbar.open({
+            message: 'Eror al registrarse',
+            type: 'is-danger'
+          })
+        }
       }
     }
   },

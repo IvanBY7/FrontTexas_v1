@@ -58,7 +58,7 @@ export default {
       this.isLoading = true
       setTimeout(() => {
         this.isLoading = false
-        this.$router.push('/')
+        this.$router.push('/sensors/dashboard')
       }, 750)
     }
   },

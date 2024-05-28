@@ -6,10 +6,10 @@
           <div class="card empresa-card is-hoverable">
             <div class="card-image">
               <figure class="image is-4by3 card-access">
-                <img :src="baseUrl(sucursal.ImagenSucursal)" alt="Imagen de empresa" @click="mostrarDetalles(sucursal)">
+                <img :src="baseUrl(sucursal.sucursal.ImagenSucursal)" alt="Imagen de empresa" @click="mostrarDetalles(sucursal)">
               </figure>
               <div class="empresa-name">
-                <p>{{ sucursal.Nombre_sucursal }}</p>
+                <p>{{ sucursal.sucursal.Nombre_sucursal }}</p>
               </div>
               <b-dropdown aria-role="menu" class="menu">
                 <button slot="trigger" class="button">
@@ -187,6 +187,18 @@ export default {
     this.getSucursal()
   },
   methods: {
+    getfecha (fecha) {
+      const opciones = {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        timeZone: 'America/Mexico_City',
+        hour12: false // Esto asegura que la hora se muestre en formato de 24 horas
+      }
+
+      const fechaFormateada = new Date(fecha).toLocaleString('es-MX', opciones)
+      return fechaFormateada
+    },
     checkrol (rol) {
       if (this.$store.state.user.groups[0] === rol) {
         return true
@@ -196,12 +208,17 @@ export default {
     },
     info (sucursal) {
       console.log(sucursal)
+      let mensaje = `<b>Nombre: </b>${sucursal.sucursal.Nombre_sucursal}<br>
+               <b>Ubicación: </b> ${sucursal.sucursal.Ubicacion} <br>
+               <b>Telefono: </b> ${sucursal.sucursal.Telefono} <br>
+               <b>Correo: </b> ${sucursal.sucursal.Correo} <br>
+               <b>Licencias:</b><br>`
+      sucursal.licencias.forEach(licencia => {
+        mensaje += `<b>Fecha de vencimiento:</b> ${this.getfecha(licencia.Fecha_vencimiento)}<br>`
+      })
       this.$buefy.dialog.alert({
         title: 'Empresa creada',
-        message: `<b>Nombrea: </b>${sucursal.Nombre_sucursal}<br>
-                      <b>Ubicación: </b> ${sucursal.Ubicacion} <br>
-                      <b>Telefono: </b> ${sucursal.Telefono} <br>
-                      <b>Correo: </b> ${sucursal.Correo} <br>`,
+        message: mensaje,
         confirmText: 'Aceptar'
       })
     },
@@ -229,9 +246,9 @@ export default {
       this.$router.go(-1)
     },
     mostrarDetalles (sucursal) {
+      localStorage.setItem('sucursal', JSON.stringify(sucursal))
       this.sucursalSeleccionada = sucursal
-      console.log(sucursal)
-      this.$router.push({ path: '/sensors/areas-trabajo', query: sucursal })
+      this.$router.push({ path: '/sensors/areas-trabajo', query: sucursal.sucursal })
     },
     async createSucursal (form) {
       console.log(form)

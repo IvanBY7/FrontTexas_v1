@@ -46,8 +46,8 @@ export default {
     this.updateChart(this.valor, this.tipodato)
 
     this.intervalId = setInterval(() => {
-      this.updateChart(this.valor, this.tipodato)
-    }, 15000)
+      this.initChart()
+    }, 1000)
 
     this.resizeObserver = new ResizeObserver(() => {
       if (this.myChart) {

@@ -30,8 +30,11 @@ export default {
     }
   },
   mounted () {
-    this.initChart()
     this.addResizeObserver()
+    this.initChart()
+    this.intervalId = setInterval(() => {
+      this.initChart()
+    }, 0)
   },
   beforeDestroy () {
     if (this.resizeObserver) {
@@ -41,6 +44,9 @@ export default {
     if (this.chart) {
       this.chart.dispose()
       this.chart = null
+    }
+    if (this.intervalId) {
+      clearInterval(this.intervalId)
     }
   },
   methods: {

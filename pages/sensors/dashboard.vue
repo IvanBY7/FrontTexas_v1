@@ -208,7 +208,7 @@ export default {
     startAutoUpdate (empresa) {
       this.intervalId = setInterval(() => {
         this.updateEmpresaData(empresa)
-      }, 15000) // 15000 ms = 15 seconds
+      }, 5000) // 5000 ms = 5 seconds
     },
     clearAutoUpdate () {
       if (this.intervalId) {

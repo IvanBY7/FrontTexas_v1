@@ -7,7 +7,7 @@
         <div class="column left has-text-centered">
           <div class="cont_grafica">
             <div class="grafico">
-              <line-chart v-if="datacollection" class="grafico_linea" :chart-data="datacollection" :extra-options="options" />
+              <line-chart v-if="datacollection" id="myChart" class="grafico_linea" :chart-data="datacollection" :extra-options="options" />
             </div>
           </div>
         </div>
@@ -267,6 +267,7 @@
 <script>
 import redirect from '@/mixins/redirect'
 import LineChart from '@/components/Charts/LineChart.js'
+import 'chartjs-plugin-annotation'
 
 import FullCalendar from '@fullcalendar/vue'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -274,7 +275,6 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import GaugeChart from '@/components/GaugeCharts.vue'
 import LiquidFillChart from '@/components/LiquidFillChart.vue'
-
 export default {
   name: 'Graficass',
   components: {
@@ -332,12 +332,12 @@ export default {
         if (row.Valor === '1.0') {
           return 'red'
         } else {
-          return 'green'
+          return '#294D99'
         }
       } else if (parseFloat(row.Valor) < parseInt(row.fk_IdSensor.fk_IdTipo.Rango_min) || parseFloat(row.Valor) > parseInt(row.fk_IdSensor.fk_IdTipo.Rango_max)) {
         return 'red'
       } else {
-        return 'green'
+        return '#294D99'
       }
     },
     getEstadoSensor () {
@@ -453,6 +453,7 @@ export default {
       if (!registroSensor || !registroSensor.length) {
         return
       }
+
       this.datacollection = {
         labels: registroSensor.reverse().map(reg => this.getHora(reg.created_at)),
         datasets: [
@@ -471,6 +472,24 @@ export default {
             borderColor: '#50B2D1',
             fill: false,
             borderDash: [10, 5]
+          },
+          {
+            label: 'Fuera de Rango',
+            data: registroSensor.map(reg => parseInt(reg.fk_IdSensor.fk_IdTipo.Rango_max) + 0.1),
+            borderColor: '#cf2d2d',
+            backgroundColor: '#c785856c',
+            fill: 'end',
+            pointRadius: 0,
+            borderWidth: 0 // Sin borde
+          },
+          {
+            label: 'Fuera de Rango',
+            data: registroSensor.map(reg => parseInt(reg.fk_IdSensor.fk_IdTipo.Rango_min) - 0.1),
+            borderColor: '#cf2d2d',
+            backgroundColor: '#c785856c',
+            fill: true,
+            pointRadius: 0,
+            borderWidth: 0 // Sin borde
           }
         ]
       }
@@ -480,13 +499,15 @@ export default {
         maintainAspectRatio: false,
         elements: {
           line: {
-            tension: 0
+            tension: 0.3
           }
         },
         scales: {
           yAxes: [{
             ticks: {
-              beginAtZero: false
+              min: parseInt(registroSensor[0].fk_IdSensor.fk_IdTipo.Rango_min) - 5,
+              max: parseInt(registroSensor[0].fk_IdSensor.fk_IdTipo.Rango_max) + 5,
+              stepSize: 1
             }
           }]
         }
@@ -533,7 +554,7 @@ export default {
       }
     },
     getPointColors (registroSensor) {
-      return registroSensor.map(reg => (parseFloat(reg.Valor) >= parseInt(this.rangoMin) && parseFloat(reg.Valor) <= parseInt(this.rangoMax)) ? 'green' : 'red')
+      return registroSensor.map(reg => (parseFloat(reg.Valor) >= parseInt(this.rangoMin) && parseFloat(reg.Valor) <= parseInt(this.rangoMax)) ? 'blue' : 'red')
     },
     calculateTrendLine (registroSensor) {
       let sumX = 0; let sumY = 0; let sumXY = 0; let sumXX = 0
@@ -585,9 +606,11 @@ export default {
 }
 .estado-estable{
   background-color: #294D99 !important;
+  /* background-color: #29992959 !important; */
 }
 .estado-urgente{
   background-color: #cf2d2d !important;
+  background-color: #c785856c !important;
 }
 .estado-abierto{
   background-color: #ffcc00 !important;

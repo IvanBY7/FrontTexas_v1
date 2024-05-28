@@ -105,7 +105,9 @@ export default {
   name: 'Sucursales',
   mixins: [redirect],
   fetch () {
-    this.$store.commit('setTitleStack', ['Zonas de la sucursal ' + this.$route.query.Nombre_sucursal])
+    this.formSucursal = JSON.parse(localStorage.getItem('sucursal'))
+    console.log(this.formSucursal)
+    this.$store.commit('setTitleStack', ['Zonas de la sucursal ' + this.formSucursal.sucursal.Nombre_sucursal])
   },
   data () {
     return {

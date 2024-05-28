@@ -58,7 +58,7 @@ export default {
               to: '/empresas/Empresas',
               state: '1primary',
               icon: 'home',
-              label: 'Inicio'
+              label: 'Empresas'
             }
           ]
         ]
@@ -102,8 +102,48 @@ export default {
             //   state: '1white',
             //   icon: 'archive'
             // }
+          ],
+          'ADMINISTRACIÓN',
+          [
+            {
+              to: '/recursos/resources',
+              label: 'Recursos',
+              state: '1warning',
+              icon: 'inbox'
+            },
+            {
+              label: 'Recursos',
+              state: '1warning',
+              icon: 'cog',
+              menu: [
+                {
+                  to: '/',
+                  label: 'Empleados',
+                  state: '1warning',
+                  icon: 'user-md'
+                },
+                {
+                  to: '/',
+                  label: 'Web',
+                  state: '1warning',
+                  icon: 'university'
+                },
+                {
+                  label: 'Dispositivos',
+                  state: '1warning',
+                  icon: 'university',
+                  menu: [
+                    {
+                      to: '/',
+                      label: 'Sensores',
+                      state: '1warning',
+                      icon: 'cog'
+                    }
+                  ]
+                }
+              ]
+            }
           ]
-          // 'ADMINISTRACIÓN',
           // [
           // {
           //   to: '/roles',
